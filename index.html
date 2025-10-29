@@ -29,6 +29,22 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Fix overflow mobile -->
+    <style>
+        @media (max-width: 768px) {
+            html, body {
+                overflow-x: hidden;
+                max-width: 100vw;
+                width: 100%;
+                position: relative;
+            }
+            
+            * {
+                max-width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -43,16 +59,18 @@
                         <a href="#accueil" class="nav-link">Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#services" class="nav-link">Services</a>
+                        <a href="#services" class="nav-link">Nos Services</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#tarifs" class="nav-link">Tarifs</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#faq" class="nav-link">FAQ</a>
+                        <a href="#faq" class="nav-link">Questions</a>
                     </li>
                     <li class="nav-item">
                         <a href="#contact" class="nav-link">Contact</a>
+                    </li>
+                    <li class="nav-item nav-cta">
+                        <a href="tel:0388971860" class="nav-link-btn">
+                            <i class="fas fa-phone-alt"></i> 03 88 97 18 60
+                        </a>
                     </li>
                 </ul>
                 <div class="hamburger">
@@ -307,14 +325,6 @@
 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Habilité et Agréé</h3>
-                    <p>Service officiel et sécurisé, habilité et agréé par la Préfecture</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
                         <i class="fas fa-calendar-check"></i>
                     </div>
                     <h3>Sans Rendez-vous</h3>
@@ -497,6 +507,7 @@
                     <h3>Préparez vos documents</h3>
                     <p>Téléchargez et remplissez le formulaire Cerfa, puis rassemblez les documents nécessaires :</p>
                     <ul class="step-list">
+                        <li>✓ Permis de conduire</li>
                         <li>✓ Carte grise actuelle</li>
                         <li>✓ Pièce d'identité</li>
                         <li>✓ Justificatif de domicile</li>
@@ -664,15 +675,17 @@
                     </div>
                         <div class="rating-text">Basé sur 127 avis Google</div>
                 </div>
-                    <a href="https://www.google.com/maps/place/CARTE+GRISE+ONE/@48.6333,7.7167,15z" target="_blank" class="google-link">
+                    <a href="https://www.google.com/search?client=firefox-b-d&sa=X&sca_esv=8e61a810906f0d86&tbm=lcl&q=Carte+Grise+One+-+CARTE+GRISE+STRASBOURG+Avis&rflfq=1&num=20&stick=H4sIAAAAAAAAAONgkxIxtDAwNzYzNjCyNDExNbcwsLQ0NdnAyPiKUdc5sagkVcG9KLM4VcE_L1VBV8HZMSjEVcE9yDPYVSE4JMgx2Mk_NMhdwbEss3gRK2nqAde2AWh7AAAA&rldimm=18073630294457809954&hl=fr-FR&ved=2ahUKEwi53J-fosOQAxVLoScCHVv0LxIQ9fQKegQIQxAF&biw=1536&bih=703&dpr=1.25#lkt=LocalPoiReviews" target="_blank" class="google-link">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" class="google-logo">
                         Voir tous les avis
                     </a>
                 </div>
 
-                <div class="reviews-grid">
-                    <!-- Review 1 -->
-                    <div class="review-card">
+                <!-- Reviews Carousel -->
+                <div class="reviews-carousel">
+                    <div class="reviews-track">
+                        <!-- Review 1 -->
+                        <div class="review-card">
                         <div class="review-header">
                             <div class="reviewer-info">
                                 <div class="reviewer-avatar">M</div>
@@ -744,9 +757,83 @@
                             <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" class="source-icon">
                             Posté sur Google
                         </div>
-            </div>
-
                     </div>
+                    
+                    <!-- Duplicate reviews for infinite scroll -->
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">M</div>
+                                <div class="reviewer-details">
+                                    <h4 class="reviewer-name">Marie Leclerc</h4>
+                                    <div class="review-stars">
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="review-date">Il y a 2 jours</div>
+                        </div>
+                        <p class="review-text">"Service ultra rapide ! J'ai obtenu ma carte grise en 8 minutes chrono. L'équipe est professionnelle et très accueillante. Je recommande vivement !"</p>
+                        <div class="review-source">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" class="source-icon">
+                            Posté sur Google
+                        </div>
+                    </div>
+                    
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">J</div>
+                                <div class="reviewer-details">
+                                    <h4 class="reviewer-name">Jean Dupont</h4>
+                                    <div class="review-stars">
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="review-date">Il y a 1 semaine</div>
+                        </div>
+                        <p class="review-text">"Excellent service ! Pas besoin de rendez-vous, j'ai été reçu immédiatement. Prix transparent et équipe compétente. Merci !"</p>
+                        <div class="review-source">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" class="source-icon">
+                            Posté sur Google
+                        </div>
+                    </div>
+                    
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">S</div>
+                                <div class="reviewer-details">
+                                    <h4 class="reviewer-name">Sophie Martin</h4>
+                                    <div class="review-stars">
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="review-date">Il y a 2 semaines</div>
+                        </div>
+                        <p class="review-text">"Enfin une agence qui tient ses promesses ! Carte grise en 10 minutes, personnel aimable et efficace. Je reviendrai sans hésiter."</p>
+                        <div class="review-source">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" class="source-icon">
+                            Posté sur Google
+                        </div>
+                    </div>
+                    
+                    </div>
+                </div>
 
                 <!-- CTA Button -->
                 <div class="reviews-cta">
@@ -885,13 +972,15 @@
                                 <p>2a Rue de l'Industrie<br>67450 Mundolsheim</p>
                             </div>
                         </div>
-                        <div class="contact-item">
+                        <div class="contact-item contact-horaires">
                             <div class="contact-bar"></div>
                             <div class="contact-text">
                                 <h4>HORAIRES</h4>
-                                <p><strong>Lun-Jeu:</strong> 10h30 - 17h30<br>
-                                <strong>Vendredi:</strong> 9h00 - 12h00 & 15h00 - 18h00<br>
-                                <strong>Samedi:</strong> 10h00 - 12h30</p>
+                                <div class="horaires-list">
+                                    <p><strong>Lun-Jeu:</strong> 10h30 - 17h30</p>
+                                    <p><strong>Vendredi:</strong> 9h00 - 12h00 & 15h00 - 18h00</p>
+                                    <p><strong>Samedi:</strong> 10h00 - 12h30</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1093,8 +1182,7 @@
     <div class="whatsapp-widget" id="whatsappWidget">
         <div class="whatsapp-header">
             <div class="whatsapp-avatar">
-                <img src="https://via.placeholder.com/40x40/25D366/FFFFFF?text=CG" alt="CARTE GRISE ONE" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="avatar-fallback" style="display: none;">CG</div>
+                <img src="CR-ONE-logo.png" alt="CARTE GRISE ONE">
             </div>
             <div class="whatsapp-info">
                 <h4>CARTE GRISE ONE</h4>
@@ -1124,8 +1212,6 @@
             <p>Chattez avec nous !</p>
         </div>
     </div>
-
-    <script src="script.js"></script>
     
     <!-- Schema.org JSON-LD for Local Business -->
     <script type="application/ld+json">

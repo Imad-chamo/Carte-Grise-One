@@ -1,6 +1,37 @@
 // Performance optimizations
 const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+// ============================================
+// MOBILE MENU HAMBURGER
+// ============================================
+const hamburger = document.querySelector('.hamburger');
+const navMenu = document.querySelector('.nav-menu');
+const navLinks = document.querySelectorAll('.nav-link');
+
+// Toggle mobile menu
+if (hamburger && navMenu) {
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+
+    // Close menu when clicking on a link
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }
+    });
+}
+
 // Animated Counter for Stats
 function animateCounter(element) {
     const target = parseInt(element.getAttribute('data-target'));
@@ -61,11 +92,19 @@ document.addEventListener('DOMContentLoaded', () => {
             // Show notification
             showNotification('📥 Téléchargement du formulaire Cerfa 13750*07 en cours...', 'info');
             
-            // Simulate download (replace with actual PDF link)
+            // Download Cerfa PDF
             setTimeout(() => {
-                // In production, replace this URL with your actual Cerfa PDF
-                const cerfaUrl = 'https://www.service-public.fr/simulateur/calcul/13750';
-                window.open(cerfaUrl, '_blank');
+                // Path to Cerfa PDF in gallery folder
+                const cerfaUrl = 'gallery/demande_de_certificat_immatriculation_vehicule_remplissable.pdf';
+                
+                // Create download link
+                const link = document.createElement('a');
+                link.href = cerfaUrl;
+                link.download = 'Demande-Certificat-Immatriculation.pdf';
+                link.target = '_blank';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
                 
                 showNotification('✅ Formulaire Cerfa téléchargé ! N\'oubliez pas de le remplir avant de venir.', 'success');
             }, 500);
@@ -196,20 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Mobile Navigation Toggle
-const hamburger = document.querySelector('.hamburger');
-const navMenu = document.querySelector('.nav-menu');
-
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navMenu.classList.toggle('active');
-});
-
-// Close mobile menu when clicking on a link
-document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
-    hamburger.classList.remove('active');
-    navMenu.classList.remove('active');
-}));
+// Mobile Navigation Toggle - Already defined at the top of the file
 
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
