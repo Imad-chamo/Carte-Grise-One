@@ -1,0 +1,14 @@
+# Robots.txt for CARTE GRISE ONE
+# https://cartegriseone.fr/robots.txt
+
+User-agent: *
+Allow: /
+
+# Disallow sensitive directories
+Disallow: /admin/
+Disallow: /private/
+Disallow: /cgi-bin/
+
+# Sitemap
+Sitemap: https://cartegriseone.fr/sitemap.xml
+
