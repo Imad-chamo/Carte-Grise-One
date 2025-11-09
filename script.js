@@ -1343,7 +1343,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function startAutoSlide() {
         if (slides.length <= 1) return;
-        autoSlideInterval = setInterval(nextSlide, 8000); // Change slide every 8 seconds (slow)
+        autoSlideInterval = setInterval(nextSlide, 4000); // Change slide every 4 seconds
     }
 
     function resetAutoSlide() {
@@ -1423,9 +1423,14 @@ document.addEventListener('DOMContentLoaded', function() {
     if (slides.length <= 1) {
         if (prevBtn) prevBtn.style.display = 'none';
         if (nextBtn) nextBtn.style.display = 'none';
-        indicatorsContainer.style.display = 'none';
+        if (indicatorsContainer) indicatorsContainer.style.display = 'none';
     } else {
-        // Start auto-slide
-        startAutoSlide();
+        // Initialize first slide
+        showSlide(0);
+        
+        // Start auto-slide after a short delay to ensure everything is loaded
+        setTimeout(() => {
+            startAutoSlide();
+        }, 1000);
     }
 });

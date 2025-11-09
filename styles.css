@@ -2310,31 +2310,96 @@ img[loading="lazy"] {
 .step-list {
     list-style: none;
     padding: 0;
-    margin: 1.5rem 0;
+    margin: 1.5rem 0 2rem 0;
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
 }
 
 .step-list li {
-    padding: 0.6rem 0;
-    color: #4b5563;
+    padding: 1rem 1.25rem;
+    color: #374151;
     font-size: 0.95rem;
+    line-height: 1.6;
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    position: relative;
+    padding-left: 2.5rem;
     transition: all 0.3s ease;
+    background: #f3f4f6;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .step-list li:hover {
     color: #1a1a1a;
-    transform: translateX(5px);
+    background: #e5e7eb;
+    transform: translateX(3px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .step-list li::before {
-    content: "●";
-    color: #FFFF00;
-    font-weight: 700;
-    font-size: 1.25rem;
+    content: "";
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background: #FFFF00;
+    border-radius: 50%;
     flex-shrink: 0;
+    box-shadow: 0 0 0 2px rgba(255, 255, 0, 0.2);
+}
+
+.step-list li i {
+    color: #4b5563;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    width: 24px;
+    text-align: center;
+}
+
+/* Button Services Docs */
+.btn-services-docs {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0;
+    background: transparent;
+    color: #2563eb;
+    border: none;
+    border-radius: 0;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    margin-top: 1.5rem;
+    width: auto;
+    justify-content: flex-start;
+    cursor: pointer;
+    box-shadow: none;
+}
+
+.btn-services-docs:hover {
+    color: #1d4ed8;
+    background: transparent;
+    transform: translateX(3px);
+    text-decoration: underline;
+    box-shadow: none;
+}
+
+.btn-services-docs i {
+    color: #2563eb;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.btn-services-docs:hover i {
+    color: #1d4ed8;
 }
 
 .download-cerfa-btn {
@@ -2815,6 +2880,110 @@ img[loading="lazy"] {
     position: relative;
 }
 
+/* Local Image Carousel */
+.local-image-carousel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+}
+
+.carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.carousel-controls {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.carousel-btn {
+    background: rgba(0, 0, 0, 0.5);
+    color: #FFFF00;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    pointer-events: all;
+    font-size: 1.2rem;
+}
+
+.carousel-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+    transform: scale(1.1);
+}
+
+.carousel-indicators {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
+
+.carousel-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.carousel-indicator.active {
+    background: #FFFF00;
+    width: 30px;
+    border-radius: 6px;
+}
+
+.carousel-indicator:hover {
+    background: rgba(255, 255, 0, 0.7);
+}
+
 .local-info::before {
     content: '';
     position: absolute;
@@ -3204,6 +3373,166 @@ img[loading="lazy"] {
     transform: translateY(-2px);
 }
 
+/* Services CTA Section */
+.services-cta {
+    margin-top: 4rem;
+    padding: 4rem 3rem;
+    background: #FFFF00;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border: 2px solid #000;
+    position: relative;
+    overflow: hidden;
+}
+
+.services-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #FFFF00 0%, #FFD700 50%, #FFFF00 100%);
+    background-size: 200% 100%;
+    animation: shimmer 3s linear infinite;
+}
+
+.services-cta-content {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.services-cta h3 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.services-cta h3::before {
+    content: '📋';
+    font-size: 1.5rem;
+    display: inline-block;
+}
+
+.services-cta p {
+    font-size: 1.05rem;
+    color: #1a1a1a;
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 500;
+}
+
+.services-cta-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.services-cta-buttons .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.services-cta-buttons .btn-primary {
+    background: #000;
+    color: #fff;
+    border: 2px solid #000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.services-cta-buttons .btn-primary:hover {
+    background: #1a1a1a;
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    border-color: #000;
+}
+
+.services-cta-buttons .btn-primary i {
+    color: #FFFF00;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.services-cta-buttons .btn-primary:hover i {
+    color: #FFFF00;
+    transform: scale(1.1);
+}
+
+.services-cta-buttons .btn-secondary {
+    background: transparent;
+    color: #000;
+    border: 2px solid #000;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 14px 20px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.services-cta-buttons .btn-secondary:hover {
+    color: #1a1a1a;
+    border-color: #1a1a1a;
+    background: rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
+}
+
+.services-cta-buttons .btn-secondary i {
+    color: #000;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.services-cta-buttons .btn-secondary:hover i {
+    transform: scale(1.1);
+    color: #1a1a1a;
+}
+
+.services-cta-buttons .btn-secondary div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.15rem;
+}
+
+.services-cta-buttons .btn-secondary div span:first-child {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #000;
+}
+
+.services-cta-buttons .btn-secondary div span:last-child {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #000;
+}
+
+.services-cta-buttons .btn-secondary:hover div span {
+    color: #1a1a1a;
+}
+
 /* Responsive Services */
 @media (max-width: 991px) {
     .services-grid {
@@ -3231,6 +3560,32 @@ img[loading="lazy"] {
 
     .service-icon i {
         font-size: 1.5rem;
+    }
+    
+    /* Services CTA Mobile */
+    .services-cta {
+        margin-top: 3rem;
+        padding: 2rem 1.5rem;
+    }
+    
+    .services-cta h3 {
+        font-size: 1.25rem;
+    }
+    
+    .services-cta p {
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .services-cta-buttons {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .services-cta-buttons .btn {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
     }
 }
 
