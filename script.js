@@ -1,8 +1,11 @@
-// Performance optimizations
+// ============================================
+// OPTIMISATIONS DE PERFORMANCE
+// ============================================
 const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // ============================================
-// MOBILE MENU HAMBURGER
+// MENU MOBILE HAMBURGER
+// Gestion de l'ouverture/fermeture du menu sur mobile
 // ============================================
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
@@ -11,8 +14,11 @@ const navLinks = document.querySelectorAll('.nav-link');
 // Toggle mobile menu
 if (hamburger && navMenu) {
     hamburger.addEventListener('click', () => {
+        const isActive = hamburger.classList.contains('active');
         hamburger.classList.toggle('active');
         navMenu.classList.toggle('active');
+        hamburger.setAttribute('aria-expanded', !isActive);
+        hamburger.setAttribute('aria-label', !isActive ? 'Fermer le menu de navigation' : 'Ouvrir le menu de navigation');
     });
 
     // Close menu when clicking on a link
@@ -20,6 +26,8 @@ if (hamburger && navMenu) {
         link.addEventListener('click', () => {
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
+            hamburger.setAttribute('aria-expanded', 'false');
+            hamburger.setAttribute('aria-label', 'Ouvrir le menu de navigation');
         });
     });
 
@@ -28,11 +36,16 @@ if (hamburger && navMenu) {
         if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
+            hamburger.setAttribute('aria-expanded', 'false');
+            hamburger.setAttribute('aria-label', 'Ouvrir le menu de navigation');
         }
     });
 }
 
-// Animated Counter for Stats
+// ============================================
+// COMPTEUR ANIMÉ POUR LES STATISTIQUES
+// Animation des chiffres dans la section stats
+// ============================================
 function animateCounter(element) {
     const target = parseInt(element.getAttribute('data-target'));
     const duration = 2000; // 2 seconds
@@ -52,7 +65,10 @@ function animateCounter(element) {
     updateCounter();
 }
 
-// Intersection Observer for Stats Animation
+// ============================================
+// OBSERVATEUR D'INTERSECTION POUR L'ANIMATION DES STATS
+// Déclenche l'animation quand la section devient visible
+// ============================================
 const statsObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -81,7 +97,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Cerfa PDF Download
+// ============================================
+// TÉLÉCHARGEMENT DES FORMULAIRES CERFA
+// Gestion du téléchargement des PDF Cerfa
+// ============================================
 document.addEventListener('DOMContentLoaded', () => {
     const downloadButtons = document.querySelectorAll('#downloadCerfa, #downloadCerfaMain');
     
@@ -90,12 +109,12 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             
             // Show notification
-            showNotification('📥 Téléchargement du formulaire Cerfa 13750*07 en cours...', 'info');
+            showNotification('📥 Téléchargement du formulaire de demande d\'immatriculation Cerfa 13750*07 en cours...', 'info');
             
             // Download Cerfa PDF
             setTimeout(() => {
                 // Path to Cerfa PDF in gallery folder
-                const cerfaUrl = 'gallery/demande_de_certificat_immatriculation_vehicule_remplissable.pdf';
+                const cerfaUrl = 'imgs/demande_de_certificat_immatriculation_vehicule_remplissable.pdf';
                 
                 // Create download link
                 const link = document.createElement('a');
@@ -112,7 +131,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Gallery tabs functionality
+// Documents Modal - Définition déplacée plus bas pour éviter les doublons
+
+// ============================================
+// FONCTIONNALITÉ DES ONGLETS DE GALERIE
+// Gestion du carrousel d'images des locaux
+// ============================================
 document.addEventListener('DOMContentLoaded', () => {
     const galleryTabs = document.querySelectorAll('.gallery-tab');
     const galleryContents = document.querySelectorAll('.gallery-tab-content');
@@ -136,7 +160,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// WhatsApp Chat Widget
+// ============================================
+// WIDGET CHAT WHATSAPP
+// Gestion du chat flottant WhatsApp
+// ============================================
 document.addEventListener('DOMContentLoaded', () => {
     const whatsappFloat = document.getElementById('whatsappFloat');
     const whatsappWidget = document.getElementById('whatsappWidget');
@@ -237,59 +264,117 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Mobile Navigation Toggle - Already defined at the top of the file
 
-// Smooth scrolling for navigation links
+// ============================================
+// DÉFILEMENT FLUIDE POUR LES LIENS DE NAVIGATION
+// ============================================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
-            const headerHeight = document.querySelector('.header').offsetHeight;
-            const targetPosition = target.offsetTop - headerHeight;
+            const header = document.querySelector('.header');
+            const headerHeight = header ? header.offsetHeight : 0;
+            const topInfoBar = document.querySelector('.top-info-bar');
+            const topInfoBarHeight = topInfoBar ? topInfoBar.offsetHeight : 0;
+            const totalOffset = headerHeight + topInfoBarHeight + 20; // 20px extra padding
+            const targetPosition = target.offsetTop - totalOffset;
             
             window.scrollTo({
-                top: targetPosition,
+                top: Math.max(0, targetPosition),
                 behavior: 'smooth'
             });
         }
     });
 });
 
-// Contact Form Handling
-const contactForm = document.getElementById('contactForm');
-
-contactForm.addEventListener('submit', function(e) {
-    e.preventDefault();
+// ============================================
+// GESTION DU FORMULAIRE DE CONTACT
+// Validation et envoi du formulaire
+// ============================================
+document.addEventListener('DOMContentLoaded', () => {
+    const contactForm = document.getElementById('contactForm');
+    if (!contactForm) return;
     
-    // Get form data
-    const formData = new FormData(contactForm);
-    const data = Object.fromEntries(formData);
-    
-    // Basic validation
-    if (!data.name || !data.email || !data.phone || !data.service) {
-        showNotification('Veuillez remplir tous les champs obligatoires.', 'error');
-        return;
+    // Fonction pour ajouter l'état de chargement
+    function addLoadingState(button) {
+        const originalText = button.textContent;
+        button.textContent = 'Envoi en cours...';
+        button.disabled = true;
+        button.style.opacity = '0.7';
+        
+        return () => {
+            button.textContent = originalText;
+            button.disabled = false;
+            button.style.opacity = '1';
+        };
     }
     
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(data.email)) {
-        showNotification('Veuillez entrer une adresse email valide.', 'error');
-        return;
-    }
+    // Event listener unique pour le formulaire
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const submitButton = this.querySelector('button[type="submit"]');
+        const resetLoading = addLoadingState(submitButton);
+        
+        // Get form data
+        const formData = new FormData(contactForm);
+        const data = Object.fromEntries(formData);
+        
+        // Basic validation
+        if (!data.firstName || !data.lastName || !data.email || !data.phone || !data.service || !data.message) {
+            resetLoading();
+            showNotification('Veuillez remplir tous les champs obligatoires.', 'error');
+            return;
+        }
+        
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(data.email)) {
+            resetLoading();
+            showNotification('Veuillez entrer une adresse email valide.', 'error');
+            return;
+        }
+        
+        // Phone validation
+        const phoneRegex = /^[0-9+\-\s()]+$/;
+        if (!phoneRegex.test(data.phone)) {
+            resetLoading();
+            showNotification('Veuillez entrer un numéro de téléphone valide.', 'error');
+            return;
+        }
+        
+        // Simulate API call
+        setTimeout(() => {
+            resetLoading();
+            showNotification('Votre demande a été envoyée avec succès ! Nous vous contacterons dans les plus brefs délais.', 'success');
+            contactForm.reset();
+        }, 2000);
+    });
     
-    // Phone validation
-    const phoneRegex = /^[0-9+\-\s()]+$/;
-    if (!phoneRegex.test(data.phone)) {
-        showNotification('Veuillez entrer un numéro de téléphone valide.', 'error');
-        return;
-    }
+    // Service selection in contact form
+    const serviceSelect = document.getElementById('service');
+    const messageTextarea = document.getElementById('message');
     
-    // Simulate form submission
-    showNotification('Votre demande a été envoyée avec succès ! Nous vous contacterons dans les plus brefs délais.', 'success');
-    contactForm.reset();
+    if (serviceSelect && messageTextarea) {
+        serviceSelect.addEventListener('change', function() {
+            const serviceMessages = {
+                'renouvellement': 'Je souhaite renouveler ma carte grise. Pouvez-vous me donner plus d\'informations sur les délais et les documents nécessaires ?',
+                'duplicata': 'J\'ai perdu ma carte grise et j\'ai besoin d\'un duplicata. Comment procéder ?',
+                'changement-adresse': 'Je viens de déménager et je dois mettre à jour l\'adresse sur ma carte grise. Quels sont les documents à fournir ?',
+                'changement-titulaire': 'Je souhaite transférer la propriété de mon véhicule. Pouvez-vous m\'accompagner dans cette démarche ?'
+            };
+            
+            if (serviceMessages[this.value]) {
+                messageTextarea.value = serviceMessages[this.value];
+            }
+        });
+    }
 });
 
-// Notification System
+// ============================================
+// SYSTÈME DE NOTIFICATIONS
+// Affichage des messages de notification
+// ============================================
 function showNotification(message, type = 'info') {
     // Remove existing notifications
     const existingNotification = document.querySelector('.notification');
@@ -432,74 +517,64 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Service selection in contact form
-const serviceSelect = document.getElementById('service');
-const messageTextarea = document.getElementById('message');
 
-serviceSelect.addEventListener('change', function() {
-    const serviceMessages = {
-        'renouvellement': 'Je souhaite renouveler ma carte grise. Pouvez-vous me donner plus d\'informations sur les délais et les documents nécessaires ?',
-        'duplicata': 'J\'ai perdu ma carte grise et j\'ai besoin d\'un duplicata. Comment procéder ?',
-        'changement-adresse': 'Je viens de déménager et je dois mettre à jour l\'adresse sur ma carte grise. Quels sont les documents à fournir ?',
-        'changement-titulaire': 'Je souhaite transférer la propriété de mon véhicule. Pouvez-vous m\'accompagner dans cette démarche ?'
-    };
+// Add smooth reveal animation for sections (hero must be visible immediately)
+document.addEventListener('DOMContentLoaded', () => {
+    const revealElements = document.querySelectorAll('.section-header');
+    const heroElements = document.querySelectorAll('.hero-content, .hero-image');
     
-    if (serviceMessages[this.value]) {
-        messageTextarea.value = serviceMessages[this.value];
+    // Hero doit être visible immédiatement (pas d'animation)
+    heroElements.forEach(el => {
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+    });
+    
+    // Animation pour les autres sections seulement
+    if (!isReducedMotion && revealElements.length > 0) {
+        revealElements.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+        });
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+        
+        // Fallback: Show elements after 1 second if observer doesn't trigger
+        setTimeout(() => {
+            revealElements.forEach(el => {
+                if (el.style.opacity === '0') {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }
+            });
+        }, 1000);
+    } else {
+        revealElements.forEach(el => {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+        });
     }
 });
 
-// Add loading state to form submission
-function addLoadingState(button) {
-    const originalText = button.textContent;
-    button.textContent = 'Envoi en cours...';
-    button.disabled = true;
-    button.style.opacity = '0.7';
-    
-    return () => {
-        button.textContent = originalText;
-        button.disabled = false;
-        button.style.opacity = '1';
-    };
-}
-
-// Enhanced form submission with loading state
-contactForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const submitButton = this.querySelector('button[type="submit"]');
-    const resetLoading = addLoadingState(submitButton);
-    
-    // Simulate API call
-    setTimeout(() => {
-        resetLoading();
-        showNotification('Votre demande a été envoyée avec succès ! Nous vous contacterons dans les plus brefs délais.', 'success');
-        contactForm.reset();
-    }, 2000);
-});
-
-// Add smooth reveal animation for sections
-const revealElements = document.querySelectorAll('.section-header, .hero-content, .hero-image');
-revealElements.forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
-});
-
-const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
-    });
-}, { threshold: 0.1 });
-
-revealElements.forEach(el => revealObserver.observe(el));
-
 // Add click tracking for analytics (placeholder)
 function trackClick(element, action) {
-    console.log(`Analytics: ${action} clicked on ${element}`);
+    // Analytics tracking - integrate with your analytics service
+    if (typeof gtag !== 'undefined') {
+        gtag('event', action, {
+            'event_category': 'engagement',
+            'event_label': element
+        });
+    }
     // Here you would integrate with your analytics service
 }
 
@@ -511,8 +586,13 @@ document.querySelectorAll('.service-btn, .pricing-btn').forEach(btn => {
 });
 
 // Track contact form interactions
-contactForm.addEventListener('submit', () => {
-    trackClick(contactForm, 'contact_form_submission');
+document.addEventListener('DOMContentLoaded', () => {
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', () => {
+            trackClick(contactForm, 'contact_form_submission');
+        });
+    }
 });
 
 // Add keyboard navigation support
@@ -593,113 +673,244 @@ document.addEventListener('DOMContentLoaded', () => {
 // DOCUMENTS MODAL
 // ============================================
 
+// ============================================
+// DONNÉES DES DOCUMENTS PAR SERVICE
+// Structure contenant tous les documents nécessaires pour chaque service
+// ============================================
 const documentsData = {
     immatriculation: {
         title: "Immatriculation véhicule",
         items: [
             {
-                title: "Véhicule neuf",
+                title: "Véhicule neuf - Documents obligatoires",
                 icon: "fa-car",
                 documents: [
-                    "Certificat de conformité européen",
-                    "Facture d'achat du véhicule",
-                    "Justificatif de domicile (moins de 6 mois)",
-                    "Pièce d'identité en cours de validité",
-                    "Formulaire Cerfa 13750*07"
+                    "Certificat de conformité européen (COC)",
+                    "Facture d'achat du véhicule originale",
+                    "Justificatif de domicile de moins de 6 mois",
+                    "Pièce d'identité en cours de validité (carte nationale d'identité ou passeport)",
+                    "Permis de conduire valide",
+                    "Attestation d'assurance du véhicule",
+                    "Formulaire de demande d'immatriculation Cerfa 13750*07 dûment rempli et signé"
                 ]
             },
             {
-                title: "Véhicule d'occasion",
+                title: "Véhicule d'occasion - Documents obligatoires",
                 icon: "fa-exchange-alt",
                 documents: [
-                    "Certificat de cession (Cerfa 15776*02)",
-                    "Carte grise barrée et signée",
-                    "Contrôle technique de moins de 6 mois",
-                    "Justificatif de domicile (moins de 6 mois)",
-                    "Pièce d'identité en cours de validité",
-                    "Formulaire Cerfa 13750*07"
+                    "Certificat de cession (Cerfa 15776*02) dûment rempli et signé par les deux parties",
+                    "Carte grise originale barrée et signée par l'ancien propriétaire",
+                    "Contrôle technique de moins de 6 mois (obligatoire si véhicule de plus de 4 ans)",
+                    "Justificatif de domicile de moins de 6 mois",
+                    "Pièce d'identité en cours de validité du nouveau propriétaire",
+                    "Permis de conduire valide",
+                    "Attestation d'assurance du véhicule",
+                    "Formulaire de demande d'immatriculation Cerfa 13750*07 dûment rempli et signé"
+                ]
+            },
+            {
+                title: "Documents complémentaires si nécessaire",
+                icon: "fa-info-circle",
+                documents: [
+                    "Justificatif de non-gage (si le véhicule est gagé)",
+                    "Autorisation parentale si le propriétaire est mineur",
+                    "Procuration si demande faite par un tiers"
                 ]
             }
+        ]
+    },
+    immatriculation_fr: {
+        title: "Changement de titulaire - Cartes grises françaises",
+        items: [
+            {
+                title: "Documents obligatoires",
+                icon: "fa-file-alt",
+                documents: [
+                    "Carte grise originale datée, barrée et signée par l'ancien propriétaire",
+                    "Formulaire de demande d'immatriculation (Cerfa 13750*07) dûment rempli et signé",
+                    "Certificat de cession (Cerfa 15776*02) dûment rempli et signé par les deux parties",
+                    "Cerfa MANDAT de demande d'immatriculation (Cerfa 13750*03) dûment rempli et signé",
+                    "Pièce d'identité en cours de validité de l'acquéreur",
+                    "Permis de conduire valide de l'acquéreur",
+                    "Justificatif de domicile de moins de 6 mois du nouveau propriétaire",
+                    "Contrôle technique de moins de 6 mois (obligatoire si véhicule de plus de 4 ans)", 
+                ]
+            }
+        ]
+    },
+    immatriculation_etranger: {
+        title: "Changement de titulaire - Cartes grises étrangères (Importation E.U et Hors E.U)",
+        items: [
+            {
+                title: "Documents obligatoires - Importation",
+                icon: "fa-globe-europe",
+                documents: [
+                    "Carte grise étrangère originale ",
+                    "Contrat de vente ou facture d'achat ",
+                    "Pièce d'identité en cours de validité de l'acquéreur",
+                    "Permis de conduire valide de l'acquéreur",
+                    "Justificatif de domicile de moins de 6 mois",
+                    "Contrôle technique de moins de 6 mois (obligatoire si véhicule de plus de 4 ans)",
+                    "Certificat de conformité européen (COC) ou réception à titre isolé (RTI)",
+                    "Attestation de douane (846A) pour véhicule hors UE",
+                    "Formulaire de demande d'immatriculation (Cerfa 13750*07) dûment rempli et signé",
+                    "Cerfa MANDAT de demande d'immatriculation (Cerfa 13750*03) dûment rempli et signé"
+                ]
+            },
+            {
+                title: "Documents spécifiques selon l'origine du véhicule",
+                icon: "fa-map-marked-alt",
+                documents: [
+                    "<STRONG> Pour véhicule de l'Union Européenne :</STRONG> <br> Certificat de conformité européen (COC) obligatoire si carte grise étrangère incomplète <br> <br> Si véhicule plus 30ans : Attestaion véhicule de collection (FFVE)",
+                    "<STRONG> Pour véhicule HORS Union Européenne :</STRONG> <br> Réception à titre isolé (RTI) a demander aupres de la DREAL  <br> Attestation de douane (846A) <br> Attestation de non conformité  ou conformite partielle <br> Si véhicule plus 30ans : Attestaion véhicule de collection (FFVE)",
+                ]
+            },
+
         ]
     },
     ww: {
         title: "Plaques WW provisoires",
         items: [
             {
-                title: "Documents nécessaires",
+                title: "Documents obligatoires",
                 icon: "fa-clock",
                 documents: [
-                    "Carte grise du véhicule",
-                    "Pièce d'identité en cours de validité",
-                    "Justificatif de domicile (moins de 6 mois)",
-                    "Attestation d'assurance provisoire",
-                    "Motif de la demande (export, transit, etc.)"
+                    "Carte(s) grise(s) étrangère(s) du véhicule ",
+                    "Facture d'achat ou acte de vente ou cession de véhicule",
+                    "Pièce d'identité en cours de validité ",
+                    "Permis de conduire valide",
+                    "Justificatif de domicile de moins de 6 mois",
+                    "Contrôle technique valide",
+                    "si véhicule hors UE : Attestation de douane (846A)",
+                    "Formulaire de demande d'immatriculation Cerfa 13750*07 dûment rempli et signé",
+                    "Cerfa MANDAT de demande d'immatriculation (Cerfa 13750*03) dûment rempli et signé"
                 ]
             }
         ]
     },
     duplicata: {
-        title: "Duplicata carte grise",
+        title: "Duplicata carte grise - Perte ou Vol",
         items: [
             {
-                title: "En cas de perte",
+                title: "En cas de perte - Documents obligatoires",
                 icon: "fa-exclamation-triangle",
                 documents: [
-                    "Déclaration de perte",
+                    "Déclaration de perte (Cerfa 15776*04) dûment rempli et signé",
                     "Pièce d'identité en cours de validité",
-                    "Justificatif de domicile (moins de 6 mois)",
-                    "Formulaire Cerfa 13750*07"
+                    "Permis de conduire valide",
+                    "Justificatif de domicile de moins de 6 mois",
+                    "Formulaire de demande d'immatriculation Cerfa 13750*07 dûment rempli et signé",
+                    "Cerfa MANDAT de demande d'immatriculation (Cerfa 13750*03) dûment rempli et signé"
                 ]
             },
             {
-                title: "En cas de vol",
+                title: "En cas de vol - Documents obligatoires",
                 icon: "fa-shield-alt",
                 documents: [
-                    "Déclaration de vol (commissariat/gendarmerie)",
+                    "Déclaration de perte (Cerfa 15776*04) dûment rempli et signé",
+                    "Récépissé de depot de plainte délivré par la gendarmerie ou la police nationale",
                     "Pièce d'identité en cours de validité",
-                    "Justificatif de domicile (moins de 6 mois)",
-                    "Formulaire Cerfa 13750*07"
+                    "Permis de conduire valide",
+                    "Justificatif de domicile de moins de 6 mois",
+                    "Cerfa MANDAT de demande d'immatriculation (Cerfa 13750*03) dûment rempli et signé",
+                    "Formulaire de demande d'immatriculation Cerfa 13750*07 dûment rempli et signé"
                 ]
-            }
+            },
+            {
+                title: "Héritage",
+                icon: "fa-shield-alt",
+                documents: [],
+                isMainTitle: true
+            },
+            {
+                title: "Documents généraux",
+                icon: "fa-file-alt",
+                documents: [
+                    "Acte de notoriété",
+                    "Attestation de décès",
+                    "Livret de famille",
+                    "attestation de desistement + CNI Recto Verso de chaque héritier",
+                    "controle technique valide (Aux epoux)",
+                    "contrôle technique de moins de 6 mois (Aux enfants)",
+                    "Certificat d'immatriculation du véhicule Cerfa 13750*07 dûment rempli et signé",
+                ]
+            },
+            {
+                title: "Documents titulaire",
+                icon: "fa-user",
+                documents: [
+                    "Mandat de demande d'immatriculation (Cerfa 13750*03) dûment rempli et signé",
+                    "Formulaire de demande d'immatriculation Cerfa 13750*07 dûment rempli et signé",
+                    "Cerfa cession (Cerfa 15776*02) dûment rempli et signé",
+                    "piece d'identité en cours de validité",
+                    "permis de conduire valide",
+                    "justificatif de domicile de moins de 6 mois"
+                ]
+            },
         ]
     },
     adresse: {
         title: "Changement d'adresse",
         items: [
             {
-                title: "Documents nécessaires",
+                title: "Documents obligatoires",
                 icon: "fa-home",
                 documents: [
-                    "Carte grise originale",
-                    "Justificatif de domicile de moins de 6 mois",
+                    "Carte grise originale ou copie du véhicule",
                     "Pièce d'identité en cours de validité",
-                    "Formulaire Cerfa 13750*07"
+                    "Permis de conduire valide",
+                    "Justificatif de domicile de moins de 6 mois à la nouvelle adresse",
+                    "Formulaire de demande d'immatriculation Cerfa 13750*07 dûment rempli et signé",
+                    "Si carte grise sous ancien format (FNI) changement de plaque d'immatriculation obligatoire",
+                    "Cerfa MANDAT de demande d'immatriculation (Cerfa 13750*03) dûment rempli et signé"
+                ]
+            },
+            {
+                title: "Types de justificatifs de domicile acceptés",
+                icon: "fa-file-invoice",
+                documents: [
+                    "Facture d'électricité, gaz, eau ou téléphone de moins de 6 mois",
+                    "Quittance de loyer de moins de 6 mois",
+                    "Attestation d'hébergement avec pièce d'identité de l'hébergeur",
+                    "Avis d'imposition de moins d'un an",
+                    "Relevé de compte bancaire de moins de 3 mois"
+                ]
+            },
+            {
+                title: "Documents complémentaires si nécessaire",
+                icon: "fa-info-circle",
+                documents: [
+                    "Justificatif de situation fiscale si changement de département"
                 ]
             }
         ]
     },
     cession: {
-        title: "Déclaration de cession",
+        title: "Déclaration de cession et d'achat",
         items: [
             {
-                title: "Pour le vendeur",
+                title: "Pour le vendeur - Documents obligatoires",
                 icon: "fa-user",
                 documents: [
-                    "Carte grise originale",
-                    "Certificat de cession (Cerfa 15776*02) en 2 exemplaires",
-                    "Contrôle technique de moins de 6 mois (si +4 ans)",
-                    "Pièce d'identité"
+                    "Carte grise originale du véhicule",
+                    "Certificat de cession (Cerfa 15776*02) en 2 exemplaires, dûment rempli et signé",
+                    "Contrôle technique de moins de 6 mois (obligatoire si véhicule de plus de 4 ans)",
+                    "Pièce d'identité en cours de validité (carte nationale d'identité ou passeport)",
+                    "Permis de conduire valide",
+                    "Justificatif de domicile de moins de 6 mois"
                 ]
             },
             {
-                title: "Pour l'acheteur",
+                title: "Pour l'acheteur - Documents obligatoires",
                 icon: "fa-user-plus",
                 documents: [
-                    "Certificat de cession signé",
-                    "Carte grise barrée",
-                    "Justificatif de domicile (moins de 6 mois)",
-                    "Pièce d'identité en cours de validité",
-                    "Formulaire Cerfa 13750*07"
+                    "Certificat de cession (Cerfa 15776*02) signé par le vendeur",
+                    "Carte grise originale barrée et signée par le vendeur",
+                    "Justificatif de domicile de moins de 6 mois",
+                    "Pièce d'identité en cours de validité (carte nationale d'identité ou passeport)",
+                    "Permis de conduire valide",
+                    "Attestation d'assurance du véhicule au nom de l'acheteur",
+                    "Formulaire de demande d'immatriculation Cerfa 13750*07 dûment rempli et signé"
                 ]
             }
         ]
@@ -708,28 +919,170 @@ const documentsData = {
         title: "Certificat de conformité (COC)",
         items: [
             {
-                title: "Documents nécessaires",
+                title: "Documents obligatoires",
                 icon: "fa-certificate",
                 documents: [
-                    "Carte grise du véhicule",
-                    "Pièce d'identité en cours de validité",
-                    "Numéro de série du véhicule (VIN)",
-                    "Marque et modèle du véhicule",
-                    "Date de première mise en circulation"
+                    "Carte grise étrangère originale"
+                ]
+            },
+            {
+                title: "Important",
+                icon: "fa-info-circle",
+                documents: [
+                    "Pour le reste des papiers nécessaires, veuillez contacter notre agence. Chaque marque de véhicule a ses propres procédures spécifiques pour obtenir le certificat de conformité (COC)."
+                ]
+            }
+        ]
+    }
+    ,quitus: {
+        title: "Demande de quitus fiscal (Tout la France)",
+        items: [
+            {
+                title: "Documents obligatoires",
+                icon: "fa-file-invoice-dollar",
+                documents: [
+                    "Carte grise étrangère du véhicule",
+                    "Facture d'achat ou certificat de cession",
+                    "Pièce d'identité en cours de validité ",
+                    "Justificatif de domicile de moins de 6 mois",
+                    "Formulaire de demande de quitus fiscal (Cerfa 15291*04) a imprimer et remplire en agence",
+                    "Cerfa MANDAT de demande d'immatriculation (Cerfa 13750*03) dûment rempli et signé"
+                ]
+            },
+
+        ]
+    },
+
+    plaques: {
+        title: "Jeu de plaques d'immatriculation",
+        items: [
+            {
+                title: "Plaques classiques <span class='title-small'>- Plaques auto SIV INCASSABLE</span>",
+                icon: "fa-car",
+                isMainTitle: true
+            },
+            {
+                title: "",
+                icon: "",
+                images: [
+                    "imgs/Plates/11.png",
+                    "imgs/Plates/12.png"
+                ]
+            },
+            {
+                title: "Plaques collection <span class='title-small'>- Plaques auto SIV INCASSABLE</span>",
+                icon: "fa-star",
+                isMainTitle: true
+            },
+            {
+                title: "",
+                icon: "",
+                images: [
+                    "imgs/Plates/4.png",
+                    "imgs/Plates/13.png"
+                ]
+            },
+            {
+                title: "Caractéristiques des plaques",
+                icon: "fa-info-circle",
+                documents: [
+                    "Plaques conformes aux normes européennes",
+                    "Différents formats disponibles selon vos besoins",
+                    "Installation rapide et professionnelle",
+                    "Garantie de qualité et de conformité"
+                ]
+            }
+        ]
+    },
+    // Service : Demande de quitus fiscal
+    // Document fiscal nécessaire pour l'immatriculation d'un véhicule importé ou acheté
+    // Service disponible pour toute la France
+    quitus: {
+        title: "Demande de quitus fiscal (Tout la France)",
+        items: [
+            {
+                title: "Documents obligatoires",
+                icon: "fa-file-invoice-dollar",
+                documents: [
+                    "Carte grise originale du véhicule",
+                    "Pièce d'identité en cours de validité du propriétaire",
+                    "Justificatif de domicile de moins de 6 mois",
+                    "Facture d'achat ou certificat de cession",
+                    "Contrôle technique de moins de 6 mois (si véhicule de plus de 4 ans)",
+                    "Formulaire de demande de quitus fiscal dûment rempli"
+                ]
+            },
+            {
+                title: "Informations importantes",
+                icon: "fa-info-circle",
+                documents: [
+                    "Le quitus fiscal est nécessaire pour l'immatriculation d'un véhicule importé ou acheté",
+                    "Délai de traitement : variable selon les services fiscaux",
+                    "Service disponible pour toute la France",
+                    "Pour plus d'informations, contactez notre agence"
                 ]
             }
         ]
     }
 };
 
-function showDocuments(serviceType) {
+// ============================================
+// FONCTION GLOBALE : TÉLÉCHARGEMENT DES FORMULAIRES CERFA
+// Télécharge les PDF Cerfa selon le type demandé
+// ============================================
+window.downloadCerfaPDF = function(cerfaType) {
+    // Déterminer quel formulaire télécharger selon le type
+    let cerfaUrl, fileName, notificationText;
+    
+    if (cerfaType === '15776' || cerfaType === 'cession') {
+        // Pour le certificat de cession, on utilise le même PDF pour l'instant
+        // ou on peut rediriger vers le site officiel
+        cerfaUrl = 'https://www.service-public.fr/particuliers/vosdroits/R1136';
+        fileName = 'Certificat-de-cession-15776.pdf';
+        notificationText = '📥 Redirection vers le formulaire Cerfa 15776*02...';
+    } else {
+        // Formulaire de demande d'immatriculation Cerfa 13750*07 par défaut
+        cerfaUrl = 'imgs/demande_de_certificat_immatriculation_vehicule_remplissable.pdf';
+        fileName = 'Demande-Certificat-Immatriculation.pdf';
+        notificationText = '📥 Téléchargement du formulaire de demande d\'immatriculation Cerfa 13750*07 en cours...';
+    }
+    
+    showNotification(notificationText, 'info');
+    
+    setTimeout(() => {
+        const link = document.createElement('a');
+        link.href = cerfaUrl;
+        link.download = fileName;
+        link.target = '_blank';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        showNotification('✅ Formulaire téléchargé ! N\'oubliez pas de le remplir avant de venir.', 'success');
+    }, 500);
+}
+
+// ============================================
+// FONCTION GLOBALE : AFFICHAGE DES DOCUMENTS
+// Ouvre la modal avec les documents nécessaires pour un service
+// ============================================
+window.showDocuments = function(serviceType) {
     const modal = document.getElementById('documentsModal');
     const modalTitle = document.getElementById('modalTitle');
     const modalDocumentsList = document.getElementById('modalDocumentsList');
     
+    // Vérifier que tous les éléments existent
+    if (!modal || !modalTitle || !modalDocumentsList) {
+        // Modal elements not found - fail silently in production
+        return;
+    }
+    
     const data = documentsData[serviceType];
     
-    if (!data) return;
+    if (!data) {
+        // Service type not found - fail silently in production
+        return;
+    }
     
     // Set title
     modalTitle.textContent = data.title;
@@ -738,35 +1091,138 @@ function showDocuments(serviceType) {
     modalDocumentsList.innerHTML = '';
     
     // Add documents
-    data.items.forEach(item => {
-        const itemDiv = document.createElement('div');
-        itemDiv.className = 'modal-document-item';
-        
-        const title = document.createElement('h4');
-        title.innerHTML = `<i class="fas ${item.icon}"></i> ${item.title}`;
-        
-        const ul = document.createElement('ul');
-        item.documents.forEach(doc => {
-            const li = document.createElement('li');
-            li.textContent = doc;
-            ul.appendChild(li);
+    if (data.items && Array.isArray(data.items)) {
+        data.items.forEach(item => {
+            const itemDiv = document.createElement('div');
+            
+            // Vérifier si c'est un titre principal
+            if (item.isMainTitle) {
+                itemDiv.className = 'modal-document-item modal-main-title';
+                const title = document.createElement('h3');
+                title.className = 'main-title';
+                title.innerHTML = `<i class="fas ${item.icon}"></i> ${item.title}`;
+                itemDiv.appendChild(title);
+                modalDocumentsList.appendChild(itemDiv);
+                return; // Ne pas continuer pour ce item
+            }
+            
+            itemDiv.className = 'modal-document-item';
+            
+            // Vérifier si c'est une galerie d'images
+            if (item.images && Array.isArray(item.images) && item.images.length > 0) {
+                const imagesContainer = document.createElement('div');
+                imagesContainer.className = 'modal-images-gallery';
+                
+                item.images.forEach(imagePath => {
+                    const imgDiv = document.createElement('div');
+                    imgDiv.className = 'modal-image-item';
+                    const img = document.createElement('img');
+                    img.src = imagePath;
+                    img.alt = 'Exemple de plaque d\'immatriculation';
+                    img.loading = 'lazy';
+                    img.onerror = function() {
+                        this.style.display = 'none';
+                    };
+                    imgDiv.appendChild(img);
+                    imagesContainer.appendChild(imgDiv);
+                });
+                
+                // Afficher le titre seulement s'il n'est pas vide
+                if (item.title && item.title.trim() !== '') {
+                    const title = document.createElement('h4');
+                    title.innerHTML = item.icon ? `<i class="fas ${item.icon}"></i> ${item.title}` : item.title;
+                    itemDiv.appendChild(title);
+                }
+                
+                itemDiv.appendChild(imagesContainer);
+                modalDocumentsList.appendChild(itemDiv);
+                return; // Ne pas continuer pour ce item
+            }
+            
+            const title = document.createElement('h4');
+            title.innerHTML = `<i class="fas ${item.icon}"></i> ${item.title}`;
+            
+            const ul = document.createElement('ul');
+            if (item.documents && Array.isArray(item.documents) && item.documents.length > 0) {
+                let i = 0;
+                while (i < item.documents.length) {
+                    const doc = item.documents[i];
+                    
+                    // Vérifier si c'est une paire de Cerfa à afficher côte à côte
+                    if (doc.startsWith('CERFA_PAIR:')) {
+                        const cerfaPair = doc.split(':');
+                        const cerfa1Type = cerfaPair[1]; // 15776
+                        const cerfa2Type = cerfaPair[2]; // 13750
+                        
+                        const li = document.createElement('li');
+                        li.className = 'cerfa-pair-item';
+                        li.innerHTML = `
+                            <div class="cerfa-pair-container">
+                                <div class="cerfa-item-pair">
+                                    <span class="doc-text">Certificat de cession (Cerfa 15776*02)</span>
+                                    <button class="cerfa-download-btn" onclick="downloadCerfaPDF('${cerfa1Type}')" title="Télécharger le formulaire Cerfa 15776*02">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                </div>
+                                <div class="cerfa-item-pair">
+                                    <span class="doc-text">Formulaire de demande d'immatriculation Cerfa 13750*07</span>
+                                    <button class="cerfa-download-btn" onclick="downloadCerfaPDF('${cerfa2Type}')" title="Télécharger le formulaire de demande d'immatriculation Cerfa 13750*07">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                        ul.appendChild(li);
+                        i++;
+                    } else {
+                        const li = document.createElement('li');
+                        
+                        // Vérifier si le document contient "Cerfa" pour ajouter un bouton de téléchargement
+                        if (doc.toLowerCase().includes('cerfa') || doc.toLowerCase().includes('formulaire')) {
+                            // Déterminer le type de Cerfa
+                            let cerfaType = '13750'; // Par défaut
+                            if (doc.includes('15776') || doc.toLowerCase().includes('cession')) {
+                                cerfaType = '15776';
+                            }
+                            
+                            li.innerHTML = `
+                                <span class="doc-text">${doc}</span>
+                                <button class="cerfa-download-btn" onclick="downloadCerfaPDF('${cerfaType}')" title="Télécharger le formulaire Cerfa">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            `;
+                        } else {
+                            li.innerHTML = `<span class="doc-text">${doc}</span>`;
+                        }
+                        
+                        ul.appendChild(li);
+                        i++;
+                    }
+                }
+            }
+            
+            itemDiv.appendChild(title);
+            itemDiv.appendChild(ul);
+            modalDocumentsList.appendChild(itemDiv);
         });
-        
-        itemDiv.appendChild(title);
-        itemDiv.appendChild(ul);
-        modalDocumentsList.appendChild(itemDiv);
-    });
+    }
     
     // Show modal
     modal.classList.add('show');
     document.body.style.overflow = 'hidden';
-}
+};
 
-function closeDocumentsModal() {
+// ============================================
+// FONCTION GLOBALE : FERMETURE DE LA MODAL
+// Ferme la modal des documents
+// ============================================
+window.closeDocumentsModal = function() {
     const modal = document.getElementById('documentsModal');
-    modal.classList.remove('show');
-    document.body.style.overflow = '';
-}
+    if (modal) {
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+};
 
 // Close modal when clicking outside
 document.addEventListener('click', function(event) {
@@ -818,7 +1274,6 @@ if (acceptBtn) {
         localStorage.setItem('cookieConsent', 'accepted');
         localStorage.setItem('cookieConsentDate', new Date().toISOString());
         hideCookieBanner();
-        console.log('✅ Cookies accepted');
     });
 }
 
@@ -830,6 +1285,147 @@ if (rejectBtn) {
         localStorage.setItem('cookieConsent', 'rejected');
         localStorage.setItem('cookieConsentDate', new Date().toISOString());
         hideCookieBanner();
-        console.log('❌ Cookies rejected');
     });
 }
+
+// ============================================
+// LOCAL IMAGES CAROUSEL
+// ============================================
+document.addEventListener('DOMContentLoaded', function() {
+    const carousel = document.querySelector('.local-image-carousel');
+    if (!carousel) return;
+
+    const slides = carousel.querySelectorAll('.carousel-slide');
+    const prevBtn = carousel.querySelector('.carousel-prev');
+    const nextBtn = carousel.querySelector('.carousel-next');
+    const indicatorsContainer = carousel.querySelector('.carousel-indicators');
+    
+    let currentSlide = 0;
+    let autoSlideInterval;
+
+    // Create indicators
+    slides.forEach((_, index) => {
+        const indicator = document.createElement('div');
+        indicator.className = 'carousel-indicator' + (index === 0 ? ' active' : '');
+        indicator.setAttribute('data-slide', index);
+        indicator.setAttribute('aria-label', `Aller à l'image ${index + 1}`);
+        indicatorsContainer.appendChild(indicator);
+    });
+
+    const indicators = indicatorsContainer.querySelectorAll('.carousel-indicator');
+
+    function showSlide(index) {
+        // Remove active class from all slides and indicators
+        slides.forEach(slide => slide.classList.remove('active', 'prev'));
+        indicators.forEach(indicator => indicator.classList.remove('active'));
+
+        // Add active class to current slide and indicator
+        slides[index].classList.add('active');
+        indicators[index].classList.add('active');
+
+        currentSlide = index;
+    }
+
+    function nextSlide() {
+        const next = (currentSlide + 1) % slides.length;
+        showSlide(next);
+    }
+
+    function prevSlide() {
+        const prev = (currentSlide - 1 + slides.length) % slides.length;
+        showSlide(prev);
+    }
+
+    function goToSlide(index) {
+        showSlide(index);
+        resetAutoSlide();
+    }
+
+    function startAutoSlide() {
+        if (slides.length <= 1) return;
+        autoSlideInterval = setInterval(nextSlide, 8000); // Change slide every 8 seconds (slow)
+    }
+
+    function resetAutoSlide() {
+        clearInterval(autoSlideInterval);
+        startAutoSlide();
+    }
+
+    // Event listeners
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            nextSlide();
+            resetAutoSlide();
+        });
+    }
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            prevSlide();
+            resetAutoSlide();
+        });
+    }
+
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            goToSlide(index);
+        });
+    });
+
+    // Keyboard navigation
+    carousel.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+            prevSlide();
+            resetAutoSlide();
+        } else if (e.key === 'ArrowRight') {
+            nextSlide();
+            resetAutoSlide();
+        }
+    });
+
+    // Pause on hover
+    carousel.addEventListener('mouseenter', () => {
+        clearInterval(autoSlideInterval);
+    });
+
+    carousel.addEventListener('mouseleave', () => {
+        startAutoSlide();
+    });
+
+    // Swipe support for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    carousel.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    });
+
+    carousel.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    });
+
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0) {
+                nextSlide();
+            } else {
+                prevSlide();
+            }
+            resetAutoSlide();
+        }
+    }
+
+    // Hide controls and indicators if only one slide
+    if (slides.length <= 1) {
+        if (prevBtn) prevBtn.style.display = 'none';
+        if (nextBtn) nextBtn.style.display = 'none';
+        indicatorsContainer.style.display = 'none';
+    } else {
+        // Start auto-slide
+        startAutoSlide();
+    }
+});

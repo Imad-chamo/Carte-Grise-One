@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <!-- ============================================
+         MÉTA-INFORMATIONS ET SEO
+         ============================================ -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carte Grise en 10min à Mundolsheim | CARTE GRISE ONE</title>
-    <meta name="description" content="Obtenez votre carte grise en 10 minutes sans RDV à Mundolsheim. Service à 30€. Agréée ANTS. Ouvert du lundi au samedi. ☎️ 03 88 97 18 60">
-    <meta name="keywords" content="carte grise, Mundolsheim, Strasbourg, ANTS, immatriculation, changement adresse, duplicata, certificat immatriculation">
+    <title>Carte Grise Mundolsheim en 10min | Sans Rendez-vous Strasbourg | CARTE GRISE ONE</title>
+    <meta name="description" content="Carte grise en 10 minutes à Mundolsheim sans rendez-vous. Service express à 30€. Immatriculation, changement titulaire, duplicata. Ouvert lundi-samedi. ☎️ 03 88 97 18 60">
+    <meta name="keywords" content="carte grise Mundolsheim, carte grise Strasbourg, carte grise 10 minutes, carte grise sans rdv, immatriculation Mundolsheim, changement titulaire carte grise, duplicata carte grise, agence carte grise Strasbourg, carte grise rapide">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://cartegriseone.fr/">
     <meta property="og:title" content="Carte Grise en 10min à Mundolsheim | CARTE GRISE ONE">
-    <meta property="og:description" content="Obtenez votre carte grise en 10 minutes sans RDV. Service à 30€. Agréée ANTS. ☎️ 03 88 97 18 60">
+    <meta property="og:description" content="Obtenez votre carte grise en 10 minutes sans RDV. Service à 30€. ☎️ 03 88 97 18 60">
     <meta property="og:image" content="https://cartegriseone.fr/CR-ONE-logo.png">
     <meta property="og:locale" content="fr_FR">
     
@@ -19,16 +22,90 @@
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://cartegriseone.fr/">
     <meta property="twitter:title" content="Carte Grise en 10min à Mundolsheim | CARTE GRISE ONE">
-    <meta property="twitter:description" content="Obtenez votre carte grise en 10 minutes sans RDV. Service à 30€. Agréée ANTS.">
+    <meta property="twitter:description" content="Obtenez votre carte grise en 10 minutes sans RDV. Service à 30€.">
     <meta property="twitter:image" content="https://cartegriseone.fr/CR-ONE-logo.png">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="CR-ONE-logo.png">
-    <link rel="apple-touch-icon" href="CR-ONE-logo.png">
+    <link rel="icon" type="image/png" href="imgs/Logos/Favicon.png">
+    <link rel="apple-touch-icon" href="imgs/Logos/Favicon.png">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="CR-ONE-logo.png" as="image">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://cartegriseone.fr/">
     
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "CARTE GRISE ONE",
+      "image": "https://cartegriseone.fr/CR-ONE-logo.png",
+      "description": "Service de carte grise en 10 minutes sans rendez-vous à Mundolsheim. Service à partir de 30€.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "2a Rue de l'Industrie",
+        "addressLocality": "Mundolsheim",
+        "postalCode": "67450",
+        "addressCountry": "FR"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "48.6422",
+        "longitude": "7.7150"
+      },
+      "url": "https://cartegriseone.fr",
+      "telephone": "+33388971860",
+      "priceRange": "30€",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday"],
+          "opens": "10:30",
+          "closes": "17:30"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Friday",
+          "opens": "09:00",
+          "closes": "12:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Friday",
+          "opens": "15:00",
+          "closes": "18:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Saturday",
+          "opens": "10:00",
+          "closes": "12:30"
+        }
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "269"
+      },
+      "serviceArea": {
+        "@type": "City",
+        "name": "Mundolsheim"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Strasbourg"
+      }
+    }
+    </script>
     
     <!-- Fix overflow mobile -->
     <style>
@@ -47,132 +124,171 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
+    <!-- ============================================
+         LIEN D'ACCESSIBILITÉ (SKIP TO CONTENT)
+         ============================================ -->
+    <a href="#accueil" class="skip-to-content" aria-label="Aller au contenu principal">Aller au contenu principal</a>
+    
+    <!-- ============================================
+         BARRE D'INFORMATIONS SUPÉRIEURE
+         Affiche les horaires et le prix du service
+         ============================================ -->
+    <div class="top-info-bar">
+        <div class="container">
+            <div class="top-info-content">
+                <div class="top-info-item">
+                    <i class="fas fa-clock"></i>
+                    <div class="top-info-text">
+                        <strong>Horaires d'Ouverture</strong>
+                        <span>Lun-Jeu: 10h30 - 17h30 | Vendredi: 9h00 - 12h00 & 15h00 - 18h00 | Samedi: 10h00 - 12h30</span>
+                    </div>
+                </div>
+                <div class="top-info-item">
+                    <i class="fas fa-euro-sign"></i>
+                    <div class="top-info-text">
+                        <strong>Service</strong>
+                        <span>À partir de 30€ *Hors frais carte grise officiels - Pour d'autres prix, appelez ou demandez un devis</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         EN-TÊTE ET NAVIGATION PRINCIPALE
+         ============================================ -->
     <header class="header">
         <nav class="navbar">
             <div class="nav-container">
                 <div class="nav-logo">
-                    <img src="CR-ONE-logo.png" alt="CARTE GRISE ONE" class="logo-img">
+                    <a href="#accueil" aria-label="Retour à l'accueil">
+                        <img src="CR-ONE-logo.png" alt="CARTE GRISE ONE" class="logo-img">
+                    </a>
                 </div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#accueil" class="nav-link">Accueil</a>
+                <ul class="nav-menu" role="menubar">
+                    <li class="nav-item" role="none">
+                        <a href="#accueil" class="nav-link" role="menuitem" aria-label="Aller à la section accueil">Accueil</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#services" class="nav-link">Nos Services</a>
+                    <li class="nav-item" role="none">
+                        <a href="#services" class="nav-link" role="menuitem" aria-label="Aller à la section services">Nos Services</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#faq" class="nav-link">Questions</a>
+                    <li class="nav-item" role="none">
+                        <a href="#faq" class="nav-link" role="menuitem" aria-label="Aller à la section questions fréquentes">Questions</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#contact" class="nav-link">Contact</a>
+                    <li class="nav-item" role="none">
+                        <a href="#contact" class="nav-link" role="menuitem" aria-label="Aller à la section contact">Contact</a>
                     </li>
-                    <li class="nav-item nav-cta">
-                        <a href="tel:0388971860" class="nav-link-btn">
-                            <i class="fas fa-phone-alt"></i> 03 88 97 18 60
+                    <li class="nav-item nav-cta" role="none">
+                        <a href="tel:0388971860" class="nav-link-btn" role="menuitem" aria-label="Appeler au 03 88 97 18 60">
+                            <i class="fas fa-phone-alt" aria-hidden="true"></i> 03 88 97 18 60
                         </a>
                     </li>
                 </ul>
-                <div class="hamburger">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </div>
+                <button class="hamburger" aria-label="Ouvrir le menu de navigation" aria-expanded="false" aria-controls="nav-menu">
+                    <span class="bar" aria-hidden="true"></span>
+                    <span class="bar" aria-hidden="true"></span>
+                    <span class="bar" aria-hidden="true"></span>
+                </button>
             </div>
         </nav>
     </header>
 
-    <!-- Hero Section -->
+    <!-- ============================================
+         SECTION HERO (ACCUEIL)
+         Section principale avec titre, adresse et bouton d'appel
+         ============================================ -->
     <section id="accueil" class="hero">
         <!-- Left Side - Yellow -->
         <div class="hero-left">
             <div class="hero-content">
                 <h1 class="hero-title">
-                    <span class="title-word">CARTE GRISE</span>
-                    <span class="title-word">ONE</span>
+                    <span class="title-word">Carte Grise en <span class="time-red">10 Minutes</span></span>                    
+                    <span class="title-word"> Strasbourg (Mundolsheim)</span>
+                    <span class="title-word"><span class="no-rdv-red">Sans Rendez-vous</span></span>
                 </h1>
                 
-                <div class="hero-badge">
-                    <div class="time-badge pulse-badge">
-                        <span class="time-icon">⚡</span>
-                        <span class="time-text">-10 min</span>
-                    </div>
-                    <div class="no-rdv">SANS RDV</div>
-                </div>
-                
-                <p class="hero-subtitle">Votre CARTE GRISE en 10min</p>
-
+                <a href="https://www.google.com/maps/dir//2a+Rue+de+l'Industrie,+67450+Mundolsheim" target="_blank" class="hero-location-btn">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>2a Rue de l'Industrie, 67450 Mundolsheim</span>
+                    <i class="fas fa-external-link-alt"></i>
+                </a>
+                <p class="hero-parking"><strong>PARKING GRATUIT</strong></p>
                 <div class="hero-buttons">
-                    <a href="#services" class="btn btn-primary">
-                        <i class="fas fa-cogs"></i>
-                        <span>Nos services</span>
-                    </a>
                     <a href="tel:0388971860" class="btn btn-phone">
-                        <i class="fas fa-phone"></i>
-                        <span>03 88 97 18 60</span>
+                        <div class="phone-icon-wrapper">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <span class="phone-number">03 88 97 18 60</span>
+                        <span class="phone-call-text">Appelez maintenant</span>
                     </a>
-                </div>
                 </div>
             </div>
+        </div>
         
         <!-- Right Side - Black -->
         <div class="hero-right">
             <div class="hero-image">
-                <div class="hero-info-modern">
-                    <!-- Location -->
-                    <div class="info-block">
-                        <div class="info-icon-circle">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="info-text">
-                            <h3>Notre Adresse</h3>
-                            <p>2a Rue de l'Industrie<br>67450 Mundolsheim</p>
-                        </div>
-                    </div>
-
-                    <!-- Schedule -->
-                    <div class="info-block">
-                        <div class="info-icon-circle">
+                <div class="hero-services-list">
+                    <h3 class="services-title">Nos Services</h3>
+                    <ul class="services-list-hero">
+                        <li onclick="showDocuments('immatriculation_fr')">
+                            <i class="fas fa-car"></i>
+                            <span>Changement de titulaire - cartes grises francaise </span>
+                        </li>
+                        <li onclick="showDocuments('immatriculation_etranger')">
+                            <i class="fas fa-car"></i>
+                            <span>Changement de titulaire - cartes grises étrangères (IMPORTATION U.E ET HORS U.E) </span>
+                        </li>
+                        <li onclick="showDocuments('ww')">
                             <i class="fas fa-clock"></i>
-                        </div>
-                        <div class="info-text">
-                            <h3>Horaires d'Ouverture</h3>
-                            <p>
-                                <strong>Lun-Jeu:</strong> 10h30 - 17h30<br>
-                                <strong>Vendredi:</strong> 9h00 - 12h00 & 15h00 - 18h00<br>
-                                <strong>Samedi:</strong> 10h00 - 12h30
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Price -->
-                    <div class="info-block">
-                        <div class="info-icon-circle">
-                            <i class="fas fa-euro-sign"></i>
-                        </div>
-                        <div class="info-text">
-                            <h3>Tarif</h3>
-                            <p>Service à partir de <strong>30€</strong><br>
-                            <span class="info-note">*Hors frais carte grise officiels</span></p>
-                        </div>
-                    </div>
+                            <span>Immatriculation WW provisoire (valable 4mois)</span>
+                        </li>
+                    
+                        <li onclick="showDocuments('plaques')">
+                            <i class="fas fa-car"></i>
+                            <span>Jeu de plaques d'immatriculation (Tous les departements de France disponible sur commande) </span>
+                        </li>
+                        <li onclick="showDocuments('quitus')">
+                            <i class="fas fa-car"></i>
+                            <span>Demande de quitus fiscal (Toute la France)</span>
+                        </li>
+                        <li onclick="showDocuments('duplicata')">
+                            <i class="fas fa-copy"></i>
+                            <span>Duplicata Perte/Vol - Héritage - Correction carte grise </span>
+                        </li>
+                        <li onclick="showDocuments('adresse')">
+                            <i class="fas fa-home"></i>
+                            <span>Changement d'adresse</span>
+                        </li>
+                        <li onclick="showDocuments('cession')">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span>Déclaration de cession et d'achat</span>
+                        </li>
+                        <li onclick="showDocuments('coc')">
+                            <i class="fas fa-certificate"></i>
+                            <span>Certificats de conformité (COC)</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
-        <!-- Stats Section -->
-        <section class="stats-section">
+    <!-- ============================================
+         SECTION STATISTIQUES
+         Affiche les chiffres clés (clients, temps, satisfaction)
+         ============================================ -->
+    <section class="stats-section">
             <div class="container">
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-icon"><i class="fas fa-users"></i></div>
-                    <div class="stat-number" data-target="500">0</div>
+                    <div class="stat-number" data-target="1000">0</div>
                     <div class="stat-label">Clients Satisfaits</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon"><i class="fas fa-clock"></i></div>
-                    <div class="stat-number" data-target="8">0</div>
+                    <div class="stat-number" data-target="10">0</div>
                     <div class="stat-label">Minutes en Moyenne</div>
                 </div>
                 <div class="stat-card">
@@ -189,122 +305,214 @@
             </div>
         </section>
 
-    <!-- Partners Logos Section -->
-    <section class="partners-badge">
-        <div class="partners-container">
-            <div class="partners-scroll">
-                <!-- First set of logos -->
-                <div class="partner-item">
-                    <div class="partner-logo">
-                        <img src="gallery/Plates/1.png" alt="ANTS - Agence Nationale des Titres Sécurisés" loading="lazy">
+    <!-- ============================================
+         SECTION AVIS GOOGLE
+         Affiche les avis clients et la note Google
+         ============================================ -->
+    <section class="reviews-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>⭐ Ce que nos clients disent de nous</h2>
+                <p>Plus de 100 avis vérifiés sur Google</p>
+            </div>
+            
+            <!-- Google Reviews Widget -->
+            <div class="google-reviews-widget">
+                <div class="reviews-header">
+                    <div class="google-rating">
+                        <div class="rating-score">4.9</div>
+                        <div class="rating-stars">
+                            <span class="star filled">★</span>
+                            <span class="star filled">★</span>
+                            <span class="star filled">★</span>
+                            <span class="star filled">★</span>
+                            <span class="star half">★</span>
+                    </div>
+                        <div class="rating-text">Basé sur 269 avis Google</div>
+                </div>
+                    <a href="https://www.google.com/search?client=firefox-b-d&sa=X&sca_esv=8e61a810906f0d86&tbm=lcl&q=Carte+Grise+One+-+CARTE+GRISE+STRASBOURG+Avis&rflfq=1&num=20&stick=H4sIAAAAAAAAAONgkxIxtDAwNzYzNjCyNDExNbcwsLQ0NdnAyPiKUdc5sagkVcG9KLM4VcE_L1VBV8HZMSjEVcE9yDPYVSE4JMgx2Mk_NMhdwbEss3gRK2nqAde2AWh7AAAA&rldimm=18073630294457809954&hl=fr-FR&ved=2ahUKEwi53J-fosOQAxVLoScCHVv0LxIQ9fQKegQIQxAF&biw=1536&bih=703&dpr=1.25#lkt=LocalPoiReviews" target="_blank" class="google-link">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" class="google-logo">
+                        Voir tous les avis
+                    </a>
+                </div>
+
+                <!-- Reviews Carousel -->
+                <div class="reviews-carousel">
+                    <div class="reviews-track">
+                        <!-- Review 1 -->
+                        <div class="review-card">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">M</div>
+                                <div class="reviewer-details">
+                                    <h4 class="reviewer-name">Moh Hmt</h4>
+                                    <div class="review-stars">
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="review-date">Il y a 2 jours</div>
+                        </div>
+                        <p class="review-text">"Service au top !
+                            Équipe professionnelle et réactive, ils ont su répondre à toutes mes questions et à mes besoins sans perdre de temps. Démarches rapides et efficaces. Je recommande fortement leurs services à tous ceux qui veulent une carte grise sans prise de tête !"</p>
+                        <div class="review-source">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" class="source-icon">
+                            Posté sur Google
+                        </div>
+                    </div>
+
+                    <!-- Review 2 -->
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">J</div>
+                                <div class="reviewer-details">
+                                    <h4 class="reviewer-name">KarlouchTHB225</h4>
+                                    <div class="review-stars">
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="review-date">Il y a 1 semaine</div>
+                        </div>
+                        <p class="review-text">"Je recommande fortement cette agence à quiconque souhaite effectuer des démarches administratives concernant un véhicule.
+                            J’ai pour ma part eu beaucoup de difficultés à obtenir une carte grise suite à l’achat d’un véhicule en Allemagne, si j’étais venu dès le début dans cette agence cela m’aurait évité beaucoup de problèmes et quasiment deux ans de stress..
+                            En tout cas je leur dis merci pour leur professionnalisme, n’hésitez pas à leur faire confiance les yeux fermés !"</p>
+                        <div class="review-source">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" class="source-icon">
+                            Posté sur Google
+                        </div>
+                    </div>
+
+                    <!-- Review 3 -->
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">S</div>
+                                <div class="reviewer-details">
+                                    <h4 class="reviewer-name">Marie-Sara LOPES</h4>
+                                    <div class="review-stars">
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="review-date">Il y a 2 semaines</div>
+                        </div>
+                        <p class="review-text">"Personne accueillante et sympathique, n'hésite pas à répondre aux moindres questions et à vous aider.
+                            Les démarches sont rapides et efficaces, je recommande fortement leurs services !"</p>
+                        <div class="review-source">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" class="source-icon">
+                            Posté sur Google
+                        </div>
+                    </div>
+                    
+                    <!-- Duplicate reviews for infinite scroll -->
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">M</div>
+                                <div class="reviewer-details">
+                                    <h4 class="reviewer-name">Abdelghani ZIDANE</h4>
+                                    <div class="review-stars">
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="review-date">Il y a 2 jours</div>
+                        </div>
+                        <p class="review-text">" Très très bien accueilli, connaît très bien sont domaine. Très bonnes explications, efficacité, on ressort de là-bas avec la consience tranquille! Je recommande graveeeeeeeeee☺️"</p>
+                        <div class="review-source">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" class="source-icon">
+                            Posté sur Google
+                        </div>
+                    </div>
+                    
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">S</div>
+                                <div class="reviewer-details">
+                                    <h4 class="reviewer-name">Sam Lie</h4>
+                                    <div class="review-stars">
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="review-date">Il y a 1 semaine</div>
+                        </div>
+                        <p class="review-text">"Service impeccable. Rapide, efficace, clair et sympa ! Top !"</p>
+                        <div class="review-source">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" class="source-icon">
+                            Posté sur Google
+                        </div>
+                    </div>
+                    
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">I</div>
+                                <div class="reviewer-details">
+                                    <h4 class="reviewer-name">Iman ELFEKI</h4>
+                                    <div class="review-stars">
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="review-date">Il y a 2 semaines</div>
+                        </div>
+                        <p class="review-text">"Un service rapide et professionnel, je recommande vivement !"</p>
+                        <div class="review-source">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" class="source-icon">
+                            Posté sur Google
+                        </div>
+                    </div>
+                    
                     </div>
                 </div>
-                <div class="partner-item">
-                    <div class="partner-logo">
-                        <img src="gallery/Plates/2.png" alt="Ministère de l'Intérieur" loading="lazy">
-                    </div>
-                </div>
-                <div class="partner-item">
-                    <div class="partner-logo">
-                        <img src="gallery/Plates/3.png" alt="Préfecture" loading="lazy">
-                    </div>
-                </div>
-                <div class="partner-item">
-                    <div class="partner-logo">
-                        <img src="gallery/Plates/4.png" alt="SIV" loading="lazy">
-                    </div>
-                </div>
-                <div class="partner-item">
-                    <div class="partner-logo">
-                        <img src="gallery/Plates/5.png" alt="Gouvernement Français" loading="lazy">
-                    </div>
-                </div>
-                <div class="partner-item">
-                    <div class="partner-logo">
-                        <img src="gallery/Plates/6.png" alt="Service Public" loading="lazy">
-                    </div>
-                </div>
-                <div class="partner-item">
-                    <div class="partner-logo">
-                        <img src="gallery/Plates/7.png" alt="Administration" loading="lazy">
-                    </div>
-                </div>
-                <div class="partner-item">
-                    <div class="partner-logo">
-                        <img src="gallery/Plates/8.png" alt="Institution Officielle" loading="lazy">
-                    </div>
-                </div>
-                <div class="partner-item">
-                    <div class="partner-logo">
-                        <img src="gallery/Plates/9.png" alt="Organisme Agréé" loading="lazy">
-                    </div>
-                </div>
-                <div class="partner-item">
-                    <div class="partner-logo">
-                        <img src="gallery/Plates/10.png" alt="Partenaire Officiel" loading="lazy">
-                    </div>
-                </div>
-                <!-- Duplicate set for infinite scroll -->
-                <div class="partner-item">
-                    <div class="partner-logo">
-                        <img src="gallery/Plates/1.png" alt="ANTS">
-                    </div>
-                </div>
-                <div class="partner-item">
-                    <div class="partner-logo">
-                        <img src="gallery/Plates/2.png" alt="Ministère">
-                    </div>
-                </div>
-                <div class="partner-item">
-                    <div class="partner-logo">
-                        <img src="gallery/Plates/3.png" alt="Préfecture">
-                    </div>
-                </div>
-                <div class="partner-item">
-                    <div class="partner-logo">
-                        <img src="gallery/Plates/4.png" alt="SIV">
-                    </div>
-                </div>
-                <div class="partner-item">
-                    <div class="partner-logo">
-                        <img src="gallery/Plates/5.png" alt="Gouvernement">
-                    </div>
-                </div>
-                <div class="partner-item">
-                    <div class="partner-logo">
-                        <img src="gallery/Plates/6.png" alt="Service Public">
-                    </div>
-                </div>
-                <div class="partner-item">
-                    <div class="partner-logo">
-                        <img src="gallery/Plates/7.png" alt="Administration">
-                    </div>
-                </div>
-                <div class="partner-item">
-                    <div class="partner-logo">
-                        <img src="gallery/Plates/8.png" alt="Institution">
-                    </div>
-                </div>
-                <div class="partner-item">
-                    <div class="partner-logo">
-                        <img src="gallery/Plates/9.png" alt="Organisme">
-                    </div>
-                </div>
-                <div class="partner-item">
-                    <div class="partner-logo">
-                        <img src="gallery/Plates/10.png" alt="Partenaire">
-                    </div>
+
+                <!-- CTA Button -->
+                <div class="reviews-cta">
+                    <a href="https://www.google.com/search?client=firefox-b-d&sa=X&sca_esv=8e61a810906f0d86&tbm=lcl&q=Carte+Grise+One+-+CARTE+GRISE+STRASBOURG+Avis&rflfq=1&num=20&stick=H4sIAAAAAAAAAONgkxIxtDAwNzYzNjCyNDExNbcwsLQ0NdnAyPiKUdc5sagkVcG9KLM4VcE_L1VBV8HZMSjEVcE9yDPYVSE4JMgx2Mk_NMhdwbEss3gRK2nqAde2AWh7AAAA&rldimm=18073630294457809954&hl=fr-FR&ved=2ahUKEwi53J-fosOQAxVLoScCHVv0LxIQ9fQKegQIQxAF&biw=1536&bih=703&dpr=1.25#lkt=LocalPoiReviews" target="_blank" class="btn btn-primary">
+                        <i class="fab fa-google"></i> Laisser un avis sur Google
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Why Choose Us Section -->
+    <!-- ============================================
+         SECTION POURQUOI NOUS CHOISIR
+         Présente les avantages et points forts
+         ============================================ -->
     <section class="why-choose-us">
         <div class="container">
             <div class="section-header">
-                <h2>Pourquoi choisir CARTE GRISE ONE ?</h2>
-                <p>Votre partenaire de confiance pour toutes vos démarches de carte grise</p>
+                <h2>Pourquoi choisir CARTE GRISE ONE à Mundolsheim ?</h2>
+                <p>Votre agence de confiance pour toutes vos démarches de carte grise à Strasbourg et environs. Service express en 10 minutes, sans rendez-vous, au meilleur prix.</p>
             </div>
             <div class="features-grid">
                 <div class="feature-card">
@@ -336,7 +544,7 @@
                         <i class="fas fa-user-tie"></i>
                     </div>
                     <h3>Expertise Reconnue</h3>
-                    <p>Plus de 10 ans d'expérience et 500+ clients satisfaits</p>
+                    <p>Plus de 10 ans d'expérience et 1000+ clients satisfaits</p>
                 </div>
 
                 <div class="feature-card">
@@ -360,89 +568,98 @@
                 <p>Nos partenaires professionnels de confiance</p>
             </div>
             <div class="partners-companies-grid">
+                <a href="https://www.coe.int/fr/web/portal" target="_blank" rel="noopener noreferrer" class="partner-company-logo">
+                    <img src="imgs/Partenaires/CONSEIL-DE-L'EUROPE.png" alt="CONSEIL DE L'EUROPE" loading="lazy" onerror="this.style.display='none';">
+                    <div class="partner-overlay">
+                        <span>CONSEIL DE L'EUROPE</span>
+                    </div>
+                </a>
                 <a href="https://lm-cars.fr/" target="_blank" rel="noopener noreferrer" class="partner-company-logo">
-                    <img src="gallery/Partenaires/LM-CARS-67.png" alt="LM CARS 67" loading="lazy" onerror="this.style.display='none';">
+                    <img src="imgs/Partenaires/LM-CARS-67.png" alt="LM CARS 67" loading="lazy" onerror="this.style.display='none';">
                     <div class="partner-overlay">
                         <span>LM CARS 67</span>
                     </div>
                 </a>
                 <a href="https://www.leboncoin.fr/boutique/6822272/auto_vogue_strasbourg.htm" target="_blank" rel="noopener noreferrer" class="partner-company-logo">
-                    <img src="gallery/Partenaires/AUTO-VOGUE.png" alt="AUTO VOGUE" loading="lazy" onerror="this.style.display='none';">
+                    <img src="imgs/Partenaires/AUTO-VOGUE.png" alt="AUTO VOGUE" loading="lazy" onerror="this.style.display='none';">
                     <div class="partner-overlay">
                         <span>AUTO VOGUE</span>
                     </div>
                 </a>
                 <a href="https://annuaire-garagiste.fr/fr/andac-cars-souffelweyersheim-2589111.html" target="_blank" rel="noopener noreferrer" class="partner-company-logo">
-                    <img src="gallery/Partenaires/ANDAC-CARS.png" alt="ANDAC CARS" loading="lazy" onerror="this.style.display='none';">
+                    <img src="imgs/Partenaires/ANDAC-CARS.png" alt="ANDAC CARS" loading="lazy" onerror="this.style.display='none';">
                     <div class="partner-overlay">
                         <span>ANDAC CARS</span>
                     </div>
                 </a>
-                <a href="https://www.coe.int/fr/web/portal" target="_blank" rel="noopener noreferrer" class="partner-company-logo">
-                    <img src="gallery/Partenaires/CONSEIL-DE-L'EUROPE.png" alt="CONSEIL DE L'EUROPE" loading="lazy" onerror="this.style.display='none';">
-                    <div class="partner-overlay">
-                        <span>CONSEIL DE L'EUROPE</span>
-                    </div>
-                </a>
                 <a href="https://www.corvette-avenue.com/magasins" target="_blank" rel="noopener noreferrer" class="partner-company-logo">
-                    <img src="gallery/Partenaires/CORVETTE-AVENUE.png" alt="CORVETTE AVENUE" loading="lazy" onerror="this.style.display='none';">
+                    <img src="imgs/Partenaires/CORVETTE-AVENUE.png" alt="CORVETTE AVENUE" loading="lazy" onerror="this.style.display='none';">
                     <div class="partner-overlay">
                         <span>CORVETTE AVENUE</span>
                     </div>
                 </a>
                 <a href="https://www.alsacemoto.fr/" target="_blank" rel="noopener noreferrer" class="partner-company-logo">
-                    <img src="gallery/Partenaires/ESPACE-ALSACE-MOTOS-PIÈCES.png" alt="ESPACE ALSACE MOTOS PIÈCES" loading="lazy" onerror="this.style.display='none';">
+                    <img src="imgs/Partenaires/ESPACE-ALSACE-MOTOS-PIÈCES.png" alt="ESPACE ALSACE MOTOS PIÈCES" loading="lazy" onerror="this.style.display='none';">
                     <div class="partner-overlay">
                         <span>ESPACE ALSACE MOTOS PIÈCES</span>
                     </div>
                 </a>
                 <a href="https://americars-strasbourg.com/" target="_blank" rel="noopener noreferrer" class="partner-company-logo">
-                    <img src="gallery/Partenaires/AMERICARS.png" alt="AMERICARS" loading="lazy" onerror="this.style.display='none';">
+                    <img src="imgs/Partenaires/AMERICARS.png" alt="AMERICARS" loading="lazy" onerror="this.style.display='none';">
                     <div class="partner-overlay">
                         <span>AMERICARS</span>
                     </div>
                 </a>
                 <a href="https://www.nesta.fr/" target="_blank" rel="noopener noreferrer" class="partner-company-logo">
-                    <img src="gallery/Partenaires/NESTA-MUNDOLSHEIM.png" alt="NESTA MUNDOLSHEIM" loading="lazy" onerror="this.style.display='none';">
+                    <img src="imgs/Partenaires/NESTA-MUNDOLSHEIM.png" alt="NESTA MUNDOLSHEIM" loading="lazy" onerror="this.style.display='none';">
                     <div class="partner-overlay">
                         <span>NESTA MUNDOLSHEIM</span>
                     </div>
                 </a>
                 <a href="https://terrassement-jung-weyersheim.fr/" target="_blank" rel="noopener noreferrer" class="partner-company-logo">
-                    <img src="gallery/Partenaires/TERRASSEMENT-JUNG.png" alt="TERRASSEMENT JUNG" loading="lazy" onerror="this.style.display='none';">
+                    <img src="imgs/Partenaires/TERRASSEMENT-JUNG.png" alt="TERRASSEMENT JUNG" loading="lazy" onerror="this.style.display='none';">
                     <div class="partner-overlay">
                         <span>TERRASSEMENT JUNG</span>
                     </div>
                 </a>
                 <a href="https://procontrole.fr/ControleTechnique/RendezVous/Groupe/Centre/67PRCG/67PRCM" target="_blank" rel="noopener noreferrer" class="partner-company-logo">
-                    <img src="gallery/Partenaires/PRO-CONTRÔLE-MUNDOLSHEIM.png" alt="PRO CONTRÔLE MUNDOLSHEIM" loading="lazy" onerror="this.style.display='none';">
+                    <img src="imgs/Partenaires/PRO-CONTRÔLE-MUNDOLSHEIM.png" alt="PRO CONTRÔLE MUNDOLSHEIM" loading="lazy" onerror="this.style.display='none';">
                     <div class="partner-overlay">
                         <span>PRO CONTRÔLE MUNDOLSHEIM</span>
                     </div>
                 </a>
                 <a href="https://www.dekra-norisko.fr/norisko/controle-technique/souffelweyersheim,67460/4-route-de-brumath?S067D222" target="_blank" rel="noopener noreferrer" class="partner-company-logo">
-                    <img src="gallery/Partenaires/NORISKO-SOUFFEL.png" alt="NORISKO SOUFFEL" loading="lazy" onerror="this.style.display='none';">
+                    <img src="imgs/Partenaires/NORISKO-SOUFFEL.png" alt="NORISKO SOUFFEL" loading="lazy" onerror="this.style.display='none';">
                     <div class="partner-overlay">
                         <span>NORISKO SOUFFEL</span>
                     </div>
                 </a>
                 <a href="https://www.automobiles-ritterbeck.com/" target="_blank" rel="noopener noreferrer" class="partner-company-logo">
-                    <img src="gallery/Partenaires/AUTOMOBILE-RITTERBECK.png" alt="AUTOMOBILE RITTERBECK" loading="lazy" onerror="this.style.display='none';">
+                    <img src="imgs/Partenaires/AUTOMOBILE-RITTERBECK.png" alt="AUTOMOBILE RITTERBECK" loading="lazy" onerror="this.style.display='none';">
                     <div class="partner-overlay">
                         <span>AUTOMOBILE RITTERBECK</span>
                     </div>
                 </a>
                 <a href="https://nettoyage-voiture-strasbourg.com/" target="_blank" rel="noopener noreferrer" class="partner-company-logo">
-                    <img src="gallery/Partenaires/EST'TEAM-AUTO.png" alt="EST'TEAM AUTO" loading="lazy" onerror="this.style.display='none';">
+                    <img src="imgs/Partenaires/EST'TEAM-AUTO.png" alt="EST'TEAM AUTO" loading="lazy" onerror="this.style.display='none';">
                     <div class="partner-overlay">
                         <span>EST'TEAM AUTO</span>
+                    </div>
+                </a>
+                <a href="https://rhin-materiel.com/" target="_blank" rel="noopener noreferrer" class="partner-company-logo">
+                    <img src="imgs/Partenaires/Rhin-Materiel.png" alt="Rhin Matériel" loading="lazy" onerror="this.style.display='none';">
+                    <div class="partner-overlay">
+                        <span>Rhin Matériel </span>
                     </div>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Gallery Section -->
+    <!-- ============================================
+         SECTION GALERIE / LOCAUX
+         Carrousel d'images des locaux de l'agence
+         ============================================ -->
     <section class="gallery">
         <div class="container">
             <div class="section-header">
@@ -465,13 +682,10 @@
                             <i class="fas fa-check-circle"></i>
                             <span>Équipements professionnels</span>
                         </li>
+
                         <li>
                             <i class="fas fa-check-circle"></i>
-                            <span>Accès PMR facilité</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span>Parking disponible à proximité</span>
+                            <span>Parking Gratuit disponible </span>
                         </li>
                         <li>
                             <i class="fas fa-check-circle"></i>
@@ -481,22 +695,50 @@
                     <p class="local-description">
                         Nous vous accueillons dans un cadre professionnel et convivial, 
                         équipé pour traiter rapidement toutes vos demandes de carte grise. 
-                        Notre équipe est à votre disposition du lundi au vendredi.
+                        Notre équipe est à votre disposition du lundi au samedi
                     </p>
                 </div>
-                <div class="local-image">
-                    <img src="gallery/local/pic1.jpg" alt="Nos locaux CARTE GRISE ONE" loading="lazy">
+                <div class="local-image-carousel">
+                    <div class="carousel-container">
+                        <div class="carousel-slide active">
+                            <img src="imgs/local/1.png" alt="Agence carte grise Mundolsheim - CARTE GRISE ONE - Locaux professionnels pour immatriculation véhicules Strasbourg" loading="lazy">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="imgs/local/2.png" alt="Locaux CARTE GRISE ONE - Agence carte grise Mundolsheim" loading="lazy">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="imgs/local/3.jpg" alt="Agence immatriculation Mundolsheim - CARTE GRISE ONE" loading="lazy">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="imgs/local/WhatsApp Image 2025-11-03 at 16.1.jpeg" alt="Bureau CARTE GRISE ONE - Service carte grise Strasbourg" loading="lazy">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="imgs/local/WhatsApp Image 2025-11-03 at 16.13.56.jpeg" alt="Espace d'accueil CARTE GRISE ONE - Mundolsheim" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="carousel-controls">
+                        <button class="carousel-btn carousel-prev" aria-label="Image précédente">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="carousel-btn carousel-next" aria-label="Image suivante">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="carousel-indicators"></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Process Section -->
+    <!-- ============================================
+         SECTION PROCESSUS
+         Explique les 3 étapes pour obtenir une carte grise
+         ============================================ -->
     <section class="process-section">
         <div class="container">
             <div class="section-header">
-                <h2>Comment ça marche ?</h2>
-                <p>Obtenez votre carte grise en 3 étapes simples</p>
+                <h2>Comment obtenir votre carte grise à Mundolsheim ?</h2>
+                <p>Obtenez votre carte grise en 3 étapes simples. Service express en 10 minutes sans rendez-vous dans notre agence à Mundolsheim, près de Strasbourg.</p>
             </div>
 
             <div class="process-steps">
@@ -505,16 +747,14 @@
                     <div class="step-number">1</div>
                     <div class="step-icon"><i class="fas fa-file-alt"></i></div>
                     <h3>Préparez vos documents</h3>
-                    <p>Téléchargez et remplissez le formulaire Cerfa, puis rassemblez les documents nécessaires :</p>
+                    <p>Rassemblez les documents obligatoires nécessaires pour votre démarche :</p>
                     <ul class="step-list">
-                        <li>✓ Permis de conduire</li>
-                        <li>✓ Carte grise actuelle</li>
-                        <li>✓ Pièce d'identité</li>
-                        <li>✓ Justificatif de domicile</li>
-                        <li>✓ Formulaire Cerfa rempli</li>
+                        <li><i class="fas fa-file-pdf"></i> Téléchargez et remplissez les formulaires Cerfa requis</li>
+                        <li><i class="fas fa-signature"></i> Assurez-vous que tous les formulaires sont bien remplis et signés</li>
+                        <li><i class="fas fa-folder-open"></i> Rassemblez tous vos documents avant de venir</li>
                     </ul>
-                    <a href="#" class="download-cerfa-btn" id="downloadCerfa">
-                        <i class="fas fa-download"></i> Télécharger le Cerfa
+                    <a href="#services" class="btn btn-services-docs">
+                        <i class="fas fa-list-ul"></i> Consulter les documents nécessaires par service
                     </a>
                 </div>
 
@@ -549,8 +789,8 @@
                 <div class="process-step">
                     <div class="step-number">3</div>
                     <div class="step-icon"><i class="fas fa-check-circle"></i></div>
-                    <h3>Repartez avec votre carte grise</h3>
-                    <p>Votre dossier est traité immédiatement et vous recevez votre carte grise rapidement :</p>
+                    <h3>Finalisation de votre démarche</h3>
+                    <p>Votre dossier est traité immédiatement et votre carte grise vous sera remise rapidement :</p>
                     <ul class="step-list">
                         <li>✓ Certificat provisoire immédiat</li>
                         <li>✓ Carte grise sous 48-72h</li>
@@ -567,10 +807,10 @@
             <div class="process-cta">
                 <div class="cta-box">
                     <h3>🎯 Prêt à commencer ?</h3>
-                    <p>Téléchargez le formulaire Cerfa et venez nous voir !</p>
+                    <p>Consultez les documents nécessaires dans la section Services et venez nous voir !</p>
                     <div class="cta-buttons">
-                        <a href="#" class="btn btn-primary" id="downloadCerfaMain">
-                            <i class="fas fa-file-pdf"></i> Télécharger le Cerfa
+                        <a href="#services" class="btn btn-primary">
+                            <i class="fas fa-list-ul"></i> Voir les documents nécessaires
                         </a>
                         <a href="#contact" class="btn btn-secondary">
                             <i class="fas fa-phone"></i> Nous contacter
@@ -581,276 +821,136 @@
         </div>
     </section>
 
-    <!-- Services Section -->
+    <!-- ============================================
+         SECTION SERVICES
+         Liste tous les services proposés avec documents nécessaires
+         ============================================ -->
     <section id="services" class="services">
         <div class="container">
             <div class="section-header">
-                <h2>Nos Services</h2>
-                <p>Découvrez tous nos services pour vos démarches de carte grise</p>
+                <h2>Nos Services de Carte Grise à Mundolsheim</h2>
+                <p>Consultez la liste des documents nécessaires pour chaque service de carte grise. Agence pour immatriculation, changement de titulaire, duplicata et certificat de conformité à Strasbourg et environs.</p>
             </div>
             <div class="services-grid">
                 <div class="service-card">
                     <div class="service-icon">
-                        <i class="fas fa-car"></i>
+                        <i class="fas fa-car" aria-hidden="true"></i>
                     </div>
-                    <h3>Immatriculations véhicules français/étrangers/collections</h3>
-                    <p>Immatriculation complète pour tous types de véhicules.</p>
-                    <button class="service-btn" onclick="showDocuments('immatriculation')">
-                        <i class="fas fa-file-alt"></i> Documents nécessaires
+                    <h3>Changement de titulaire - cartes grises Francais</h3>
+                    <p>Documents nécessaires pour le changement de titulaire de cartes grises françaises.</p>
+                    <button class="service-btn" onclick="showDocuments('immatriculation_fr')" aria-label="Voir les documents nécessaires pour changement de titulaire cartes grises françaises">
+                        <i class="fas fa-file-alt" aria-hidden="true"></i> Documents nécessaires
                     </button>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
-                        <i class="fas fa-clock"></i>
+                        <i class="fas fa-globe" aria-hidden="true"></i>
+                    </div>
+                    <h3>Changement de titulaire - cartes grises Etrangers (IMPORTATION E.U ET HORS E.U)</h3>
+                    <p>Documents nécessaires pour l'importation et le changement de titulaire de véhicules étrangers.</p>
+                    <button class="service-btn" onclick="showDocuments('immatriculation_etranger')" aria-label="Voir les documents nécessaires pour changement de titulaire cartes grises étrangères">
+                        <i class="fas fa-file-alt" aria-hidden="true"></i> Documents nécessaires
+                    </button>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-clock" aria-hidden="true"></i>
                     </div>
                     <h3>WW provisoire</h3>
-                    <p>Plaques temporaires pour vos déplacements.</p>
-                    <button class="service-btn" onclick="showDocuments('ww')">
-                        <i class="fas fa-file-alt"></i> Documents nécessaires
+                    <p>Documents nécessaires pour l'obtention de plaques provisoires WW.</p>
+                    <button class="service-btn" onclick="showDocuments('ww')" aria-label="Voir les documents nécessaires pour plaques WW provisoires">
+                        <i class="fas fa-file-alt" aria-hidden="true"></i> Documents nécessaires
                     </button>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
-                        <i class="fas fa-copy"></i>
+                        <i class="fas fa-copy" aria-hidden="true"></i>
                     </div>
                     <h3>Duplicata Perte/Vol</h3>
-                    <p>Réédition rapide en cas de perte ou de vol.</p>
-                    <button class="service-btn" onclick="showDocuments('duplicata')">
-                        <i class="fas fa-file-alt"></i> Documents nécessaires
+                    <p>Documents nécessaires pour obtenir un duplicata en cas de perte ou de vol.</p>
+                    <button class="service-btn" onclick="showDocuments('duplicata')" aria-label="Voir les documents nécessaires pour duplicata perte ou vol">
+                        <i class="fas fa-file-alt" aria-hidden="true"></i> Documents nécessaires
                     </button>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
-                        <i class="fas fa-home"></i>
+                        <i class="fas fa-home" aria-hidden="true"></i>
                     </div>
                     <h3>Changement d'adresse</h3>
-                    <p>Mise à jour de votre adresse sur la carte grise.</p>
-                    <button class="service-btn" onclick="showDocuments('adresse')">
-                        <i class="fas fa-file-alt"></i> Documents nécessaires
+                    <p>Documents nécessaires pour mettre à jour l'adresse sur votre carte grise.</p>
+                    <button class="service-btn" onclick="showDocuments('adresse')" aria-label="Voir les documents nécessaires pour changement d'adresse">
+                        <i class="fas fa-file-alt" aria-hidden="true"></i> Documents nécessaires
                     </button>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
-                        <i class="fas fa-exchange-alt"></i>
+                        <i class="fas fa-exchange-alt" aria-hidden="true"></i>
                     </div>
                     <h3>Déclarations de cessions et d'achats</h3>
-                    <p>Gestion complète des transferts de propriété.</p>
-                    <button class="service-btn" onclick="showDocuments('cession')">
-                        <i class="fas fa-file-alt"></i> Documents nécessaires
+                    <p>Documents nécessaires pour les déclarations de cessions et d'achats de véhicules.</p>
+                    <button class="service-btn" onclick="showDocuments('cession')" aria-label="Voir les documents nécessaires pour déclarations de cessions et d'achats">
+                        <i class="fas fa-file-alt" aria-hidden="true"></i> Documents nécessaires
                     </button>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
-                        <i class="fas fa-certificate"></i>
+                        <i class="fas fa-certificate" aria-hidden="true"></i>
                     </div>
                     <h3>Certificats de conformité (COC)</h3>
-                    <p>Certificats officiels de conformité.</p>
-                    <button class="service-btn" onclick="showDocuments('coc')">
-                        <i class="fas fa-file-alt"></i> Documents nécessaires
+                    <p>Documents nécessaires pour obtenir un certificat de conformité.</p>
+                    <button class="service-btn" onclick="showDocuments('coc')" aria-label="Voir les documents nécessaires pour certificats de conformité COC">
+                        <i class="fas fa-file-alt" aria-hidden="true"></i> Documents nécessaires
+                    </button>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-car" aria-hidden="true"></i>
+                    </div>
+                    <h3>Jeu de plaques d'immatriculation</h3>
+                    <p>Documents nécessaires pour obtenir un nouveau jeu de plaques d'immatriculation.</p>
+                    <button class="service-btn" onclick="showDocuments('plaques')" aria-label="Voir les documents nécessaires pour jeu de plaques d'immatriculation">
+                        <i class="fas fa-file-alt" aria-hidden="true"></i> Documents nécessaires
+                    </button>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-file-invoice-dollar" aria-hidden="true"></i>
+                    </div>
+                    <h3>Demande de quitus fiscal (Tout la France)</h3>
+                    <p>Documents nécessaires pour la demande de quitus fiscal pour toute la France.</p>
+                    <button class="service-btn" onclick="showDocuments('quitus')" aria-label="Voir les documents nécessaires pour demande de quitus fiscal">
+                        <i class="fas fa-file-alt" aria-hidden="true"></i> Documents nécessaires
                     </button>
                 </div>
             </div>
-        </div>
-    </section>
-
-     <!-- Google Reviews Section -->
-     <section class="reviews-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>⭐ Ce que nos clients disent de nous</h2>
-                <p>Plus de 100 avis vérifiés sur Google</p>
-            </div>
             
-            <!-- Google Reviews Widget -->
-            <div class="google-reviews-widget">
-                <div class="reviews-header">
-                    <div class="google-rating">
-                        <div class="rating-score">4.8</div>
-                        <div class="rating-stars">
-                            <span class="star filled">★</span>
-                            <span class="star filled">★</span>
-                            <span class="star filled">★</span>
-                            <span class="star filled">★</span>
-                            <span class="star half">★</span>
+            <!-- CTA Button for Services -->
+            <div class="services-cta">
+                <div class="services-cta-content">
+                    <h3>📋 Besoin d'aide pour préparer vos documents ?</h3>
+                    <p>Consultez la liste complète des documents nécessaires pour chaque service</p>
+                    <div class="services-cta-buttons">
+                        <a href="#contact" class="btn btn-primary">
+                            <i class="fas fa-phone"></i> Nous contacter
+                        </a>
+                        <a href="tel:0388971860" class="btn btn-secondary">
+                            <i class="fas fa-phone-alt"></i> 03 88 97 18 60
+                        </a>
                     </div>
-                        <div class="rating-text">Basé sur 127 avis Google</div>
-                </div>
-                    <a href="https://www.google.com/search?client=firefox-b-d&sa=X&sca_esv=8e61a810906f0d86&tbm=lcl&q=Carte+Grise+One+-+CARTE+GRISE+STRASBOURG+Avis&rflfq=1&num=20&stick=H4sIAAAAAAAAAONgkxIxtDAwNzYzNjCyNDExNbcwsLQ0NdnAyPiKUdc5sagkVcG9KLM4VcE_L1VBV8HZMSjEVcE9yDPYVSE4JMgx2Mk_NMhdwbEss3gRK2nqAde2AWh7AAAA&rldimm=18073630294457809954&hl=fr-FR&ved=2ahUKEwi53J-fosOQAxVLoScCHVv0LxIQ9fQKegQIQxAF&biw=1536&bih=703&dpr=1.25#lkt=LocalPoiReviews" target="_blank" class="google-link">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" class="google-logo">
-                        Voir tous les avis
-                    </a>
-                </div>
-
-                <!-- Reviews Carousel -->
-                <div class="reviews-carousel">
-                    <div class="reviews-track">
-                        <!-- Review 1 -->
-                        <div class="review-card">
-                        <div class="review-header">
-                            <div class="reviewer-info">
-                                <div class="reviewer-avatar">M</div>
-                                <div class="reviewer-details">
-                                    <h4 class="reviewer-name">Marie Leclerc</h4>
-                                    <div class="review-stars">
-                                        <span class="star filled">★</span>
-                                        <span class="star filled">★</span>
-                                        <span class="star filled">★</span>
-                                        <span class="star filled">★</span>
-                                        <span class="star filled">★</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="review-date">Il y a 2 jours</div>
-                        </div>
-                        <p class="review-text">"Service ultra rapide ! J'ai obtenu ma carte grise en 8 minutes chrono. L'équipe est professionnelle et très accueillante. Je recommande vivement !"</p>
-                        <div class="review-source">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" class="source-icon">
-                            Posté sur Google
-                        </div>
-                    </div>
-
-                    <!-- Review 2 -->
-                    <div class="review-card">
-                        <div class="review-header">
-                            <div class="reviewer-info">
-                                <div class="reviewer-avatar">J</div>
-                                <div class="reviewer-details">
-                                    <h4 class="reviewer-name">Jean Dupont</h4>
-                                    <div class="review-stars">
-                                        <span class="star filled">★</span>
-                                        <span class="star filled">★</span>
-                                        <span class="star filled">★</span>
-                                        <span class="star filled">★</span>
-                                        <span class="star filled">★</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="review-date">Il y a 1 semaine</div>
-                        </div>
-                        <p class="review-text">"Excellent service ! Pas besoin de rendez-vous, j'ai été reçu immédiatement. Prix transparent et équipe compétente. Merci !"</p>
-                        <div class="review-source">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" class="source-icon">
-                            Posté sur Google
-                        </div>
-                    </div>
-
-                    <!-- Review 3 -->
-                    <div class="review-card">
-                        <div class="review-header">
-                            <div class="reviewer-info">
-                                <div class="reviewer-avatar">S</div>
-                                <div class="reviewer-details">
-                                    <h4 class="reviewer-name">Sophie Martin</h4>
-                                    <div class="review-stars">
-                                        <span class="star filled">★</span>
-                                        <span class="star filled">★</span>
-                                        <span class="star filled">★</span>
-                                        <span class="star filled">★</span>
-                                        <span class="star filled">★</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="review-date">Il y a 2 semaines</div>
-                        </div>
-                        <p class="review-text">"Enfin une agence qui tient ses promesses ! Carte grise en 10 minutes, personnel aimable et efficace. Je reviendrai sans hésiter."</p>
-                        <div class="review-source">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" class="source-icon">
-                            Posté sur Google
-                        </div>
-                    </div>
-                    
-                    <!-- Duplicate reviews for infinite scroll -->
-                    <div class="review-card">
-                        <div class="review-header">
-                            <div class="reviewer-info">
-                                <div class="reviewer-avatar">M</div>
-                                <div class="reviewer-details">
-                                    <h4 class="reviewer-name">Marie Leclerc</h4>
-                                    <div class="review-stars">
-                                        <span class="star filled">★</span>
-                                        <span class="star filled">★</span>
-                                        <span class="star filled">★</span>
-                                        <span class="star filled">★</span>
-                                        <span class="star filled">★</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="review-date">Il y a 2 jours</div>
-                        </div>
-                        <p class="review-text">"Service ultra rapide ! J'ai obtenu ma carte grise en 8 minutes chrono. L'équipe est professionnelle et très accueillante. Je recommande vivement !"</p>
-                        <div class="review-source">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" class="source-icon">
-                            Posté sur Google
-                        </div>
-                    </div>
-                    
-                    <div class="review-card">
-                        <div class="review-header">
-                            <div class="reviewer-info">
-                                <div class="reviewer-avatar">J</div>
-                                <div class="reviewer-details">
-                                    <h4 class="reviewer-name">Jean Dupont</h4>
-                                    <div class="review-stars">
-                                        <span class="star filled">★</span>
-                                        <span class="star filled">★</span>
-                                        <span class="star filled">★</span>
-                                        <span class="star filled">★</span>
-                                        <span class="star filled">★</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="review-date">Il y a 1 semaine</div>
-                        </div>
-                        <p class="review-text">"Excellent service ! Pas besoin de rendez-vous, j'ai été reçu immédiatement. Prix transparent et équipe compétente. Merci !"</p>
-                        <div class="review-source">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" class="source-icon">
-                            Posté sur Google
-                        </div>
-                    </div>
-                    
-                    <div class="review-card">
-                        <div class="review-header">
-                            <div class="reviewer-info">
-                                <div class="reviewer-avatar">S</div>
-                                <div class="reviewer-details">
-                                    <h4 class="reviewer-name">Sophie Martin</h4>
-                                    <div class="review-stars">
-                                        <span class="star filled">★</span>
-                                        <span class="star filled">★</span>
-                                        <span class="star filled">★</span>
-                                        <span class="star filled">★</span>
-                                        <span class="star filled">★</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="review-date">Il y a 2 semaines</div>
-                        </div>
-                        <p class="review-text">"Enfin une agence qui tient ses promesses ! Carte grise en 10 minutes, personnel aimable et efficace. Je reviendrai sans hésiter."</p>
-                        <div class="review-source">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" class="source-icon">
-                            Posté sur Google
-                        </div>
-                    </div>
-                    
-                    </div>
-                </div>
-
-                <!-- CTA Button -->
-                <div class="reviews-cta">
-                    <a href="https://www.google.com/search?client=firefox-b-d&sa=X&sca_esv=8e61a810906f0d86&tbm=lcl&q=Carte+Grise+One+-+CARTE+GRISE+STRASBOURG+Avis&rflfq=1&num=20&stick=H4sIAAAAAAAAAONgkxIxtDAwNzYzNjCyNDExNbcwsLQ0NdnAyPiKUdc5sagkVcG9KLM4VcE_L1VBV8HZMSjEVcE9yDPYVSE4JMgx2Mk_NMhdwbEss3gRK2nqAde2AWh7AAAA&rldimm=18073630294457809954&hl=fr-FR&ved=2ahUKEwi53J-fosOQAxVLoScCHVv0LxIQ9fQKegQIQxAF&biw=1536&bih=703&dpr=1.25#lkt=LocalPoiReviews" target="_blank" class="btn btn-primary">
-                        <i class="fab fa-google"></i> Laisser un avis sur Google
-                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FAQ Section -->
+    <!-- ============================================
+         SECTION FAQ (QUESTIONS FRÉQUENTES)
+         Réponses aux questions les plus courantes
+         ============================================ -->
     <section id="faq" class="faq">
         <div class="container">
             <div class="section-header">
-                <h2>Questions Fréquentes</h2>
-                <p>Retrouvez les réponses aux questions les plus courantes</p>
+                <h2>Questions Fréquentes - Carte Grise Mundolsheim</h2>
+                <p>Retrouvez les réponses aux questions les plus courantes sur les démarches de carte grise, immatriculation et changement de titulaire à Strasbourg et Mundolsheim.</p>
             </div>
             <div class="faq-container">
                 <div class="faq-item">
@@ -862,11 +962,11 @@
                         <p>Les délais varient selon le type de démarche :</p>
                         <ul>
                             <li>Renouvellement : 24-48h</li>
-                            <li>Duplicata : 24h</li>
+                            <li>Duplicata : Environ 4 semaines </li>
                             <li>Changement d'adresse : 48h</li>
                             <li>Changement de titulaire : 72h</li>
                         </ul>
-                        <p>Ces délais sont indicatifs et peuvent varier selon la charge de l'ANTS.</p>
+                        <p>Ces délais sont indicatifs et peuvent varier selon la charge administrative.</p>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -875,27 +975,16 @@
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>Les documents requis dépendent du type de démarche :</p>
-                        <ul>
-                            <li><strong>Renouvellement :</strong> Ancienne carte grise, justificatif de domicile</li>
-                            <li><strong>Duplicata :</strong> Déclaration de perte/vol, justificatif d'identité</li>
-                            <li><strong>Changement d'adresse :</strong> Carte grise actuelle, justificatif de nouveau domicile</li>
-                            <li><strong>Changement de titulaire :</strong> Carte grise, certificat de cession, justificatifs des deux parties</li>
-                        </ul>
+                        <p>Consultez la liste complète des documents demandés dans la section <a href="#services" style="color: #FFFF00; text-decoration: underline; font-weight: 600;">Services</a>. Chaque service affiche les documents nécessaires avec la possibilité de télécharger les formulaires Cerfa requis.</p>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">
+                    <div class="faq-question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-answer-1">
                         <h3>Comment puis-je suivre ma demande ?</h3>
-                        <i class="fas fa-chevron-down"></i>
+                        <i class="fas fa-chevron-down" aria-hidden="true"></i>
                     </div>
-                    <div class="faq-answer">
-                        <p>Nous vous fournissons un numéro de suivi unique dès réception de votre dossier. Vous pouvez :</p>
-                        <ul>
-                            <li>Consulter le statut en ligne sur notre site</li>
-                            <li>Recevoir des notifications par email</li>
-                            <li>Nous contacter directement par téléphone</li>
-                        </ul>
+                    <div class="faq-answer" id="faq-answer-1" role="region">
+                        <p>Pour suivre votre demande, contactez-nous par téléphone au <a href="tel:0388971860" style="color: #FFFF00; text-decoration: underline; font-weight: 600;">03 88 97 18 60</a>, par email à <a href="mailto:contact@cartegriseone.fr" style="color: #FFFF00; text-decoration: underline; font-weight: 600;">contact@cartegriseone.fr</a> ou via le <a href="#contact" style="color: #FFFF00; text-decoration: underline; font-weight: 600;">formulaire de contact</a> disponible sur notre site.</p>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -917,39 +1006,27 @@
                     <div class="faq-answer">
                         <p>Notre équipe est là pour vous accompagner :</p>
                         <ul>
-                            <li>Support client disponible du lundi au vendredi</li>
+                            <li>Support client disponible du lundi au Samedi /li>
                             <li>Résolution rapide des problèmes</li>
                             <li>Remboursement en cas d'erreur de notre part</li>
                             <li>Accompagnement personnalisé</li>
                         </ul>
                     </div>
                 </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>Puis-je annuler ma demande ?</h3>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>L'annulation est possible dans certains cas :</p>
-                        <ul>
-                            <li>Avant traitement : Remboursement intégral</li>
-                            <li>Pendant traitement : Remboursement partiel selon l'avancement</li>
-                            <li>Après traitement : Pas d'annulation possible</li>
-                        </ul>
-                        <p>Contactez-nous rapidement pour toute demande d'annulation.</p>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- ============================================
+         SECTION CONTACT
+         Formulaire de contact et informations de l'agence
+         ============================================ -->
     <section id="contact" class="contact">
         <div class="container">
             <div class="contact-content">
                 <div class="contact-info">
-                    <h2>Contactez-nous</h2>
-                    <p>Une question ? Un besoin spécifique ? Notre équipe est là pour vous accompagner.</p>
+                    <h2>Contactez CARTE GRISE ONE à Mundolsheim</h2>
+                    <p>Une question sur votre carte grise ? Un besoin spécifique d'immatriculation à Strasbourg ? Notre équipe d'experts est là pour vous accompagner dans toutes vos démarches.</p>
                     <div class="contact-details">
                         <div class="contact-item">
                             <div class="contact-bar"></div>
@@ -1005,26 +1082,30 @@
                     <h3></h3>
                     <p class="form-intro">Remplissez ce formulaire et nous vous répondrons dans les plus brefs délais</p>
                     
-                    <form id="contactForm">
+                    <form id="contactForm" aria-label="Formulaire de contact" novalidate>
                         <div class="form-row">
                         <div class="form-group">
                                 <label for="firstName">Prénom *</label>
-                                <input type="text" id="firstName" name="firstName" placeholder="Votre prénom" required>
+                                <input type="text" id="firstName" name="firstName" placeholder="Votre prénom" required aria-required="true" aria-describedby="firstName-error">
+                                <span id="firstName-error" class="error-message" role="alert" aria-live="polite"></span>
                         </div>
                         <div class="form-group">
                                 <label for="lastName">Nom *</label>
-                                <input type="text" id="lastName" name="lastName" placeholder="Votre nom" required>
+                                <input type="text" id="lastName" name="lastName" placeholder="Votre nom" required aria-required="true" aria-describedby="lastName-error">
+                                <span id="lastName-error" class="error-message" role="alert" aria-live="polite"></span>
                         </div>
                         </div>
 
                         <div class="form-row">
                         <div class="form-group">
                                 <label for="email">Email *</label>
-                                <input type="email" id="email" name="email" placeholder="votre.email@exemple.com" required>
+                                <input type="email" id="email" name="email" placeholder="votre.email@exemple.com" required aria-required="true" aria-describedby="email-error">
+                                <span id="email-error" class="error-message" role="alert" aria-live="polite"></span>
                         </div>
                         <div class="form-group">
                                 <label for="phone">Téléphone *</label>
-                                <input type="tel" id="phone" name="phone" placeholder="06 12 34 56 78" required>
+                                <input type="tel" id="phone" name="phone" placeholder="06 12 34 56 78" required aria-required="true" aria-describedby="phone-error">
+                                <span id="phone-error" class="error-message" role="alert" aria-live="polite"></span>
                             </div>
                         </div>
 
@@ -1055,17 +1136,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="urgency">Niveau d'urgence</label>
-                            <select id="urgency" name="urgency">
-                                <option value="normal">Normal</option>
-                                <option value="urgent">Urgent (sous 48h)</option>
-                                <option value="tres-urgent">Très urgent (sous 24h)</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
                             <label for="message">Votre message *</label>
-                            <textarea id="message" name="message" rows="6" placeholder="Décrivez votre demande en détail... N'oubliez pas de préciser si vous avez déjà les documents nécessaires." required></textarea>
+                            <textarea id="message" name="message" rows="6" placeholder="Décrivez votre demande en détail... N'oubliez pas de préciser si vous avez déjà les documents nécessaires." required aria-required="true" aria-describedby="message-error"></textarea>
+                            <span id="message-error" class="error-message" role="alert" aria-live="polite"></span>
                         </div>
 
                         <div class="form-group checkbox-group">
@@ -1093,7 +1166,10 @@
         </div>
     </section>
 
-    <!-- Documents Modal -->
+    <!-- ============================================
+         MODAL DOCUMENTS
+         Popup affichant les documents nécessaires pour chaque service
+         ============================================ -->
     <div id="documentsModal" class="modal">
         <div class="modal-content">
             <span class="modal-close" onclick="closeDocumentsModal()">&times;</span>
@@ -1102,14 +1178,30 @@
                 <!-- Documents will be inserted here by JavaScript -->
             </div>
             <div class="modal-footer">
-                <a href="#contact" class="btn btn-primary" onclick="closeDocumentsModal()">
-                    <i class="fas fa-phone"></i> Nous contacter
-                </a>
+                <div class="modal-footer-buttons">
+                    <a href="#contact" class="btn btn-primary" onclick="closeDocumentsModal()">
+                        <i class="fas fa-phone"></i> Nous contacter
+                    </a>
+                    <a href="https://maps.google.com/?q=2a+Rue+de+l'Industrie,+67450+Mundolsheim" target="_blank" class="btn btn-secondary" onclick="closeDocumentsModal()">
+                        <i class="fas fa-map-marker-alt"></i> Venir à l'agence
+                    </a>
+                </div>
+                <div class="modal-footer-info">
+                    <p class="footer-highlight">
+                        <i class="fas fa-clock"></i> <strong>Votre carte grise en 10 minutes</strong> - <span class="no-appointment">Sans rendez-vous !</span>
+                    </p>
+                    <p class="footer-address">
+                        <i class="fas fa-building"></i> 2a Rue de l'Industrie, 67450 Mundolsheim
+                    </p>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- ============================================
+         PIED DE PAGE
+         Informations de contact, services, horaires et liens légaux
+         ============================================ -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -1118,10 +1210,10 @@
                     <div class="footer-logo-fallback" style="display: none;">
                         <h3>CARTE GRISE ONE</h3>
                     </div>
-                    <p>Votre CARTE GRISE en 10min - SANS RDV</p>
+                    <p>Votre CARTE GRISE en 10min - SANS RENDEZ-VOUS</p>
                     <div class="footer-badge">
                         <span class="footer-time">-10 min</span>
-                        <span class="footer-rdv">SANS RDV</span>
+                        <span class="footer-rdv">SANS RENDEZ-VOUS</span>
                     </div>
                 </div>
                 <div class="footer-section">
@@ -1133,6 +1225,8 @@
                         <li><a href="#services">Changement d'adresse</a></li>
                         <li><a href="#services">Déclarations de cessions</a></li>
                         <li><a href="#services">Certificats de conformité</a></li>
+                        <li><a href="#services">Jeu de plaques d'immatriculation</a></li>
+                        <li><a href="#services">Demande de quitus fiscal</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -1158,7 +1252,7 @@
             </div>
             <div class="footer-bottom">
                 <div class="footer-bottom-content">
-                    <p>&copy; 2024 CARTE GRISE ONE. Tous droits réservés. Habilité et agréé par la Préfecture.</p>
+                    <p>&copy; 2025 CARTE GRISE ONE. Tous droits réservés.</p>
                     <div class="footer-links">
                         <a href="mentions-legales.html">Mentions légales</a>
                         <span>•</span>
@@ -1178,7 +1272,10 @@
         </div>
     </footer>
 
-    <!-- WhatsApp Chat Widget -->
+    <!-- ============================================
+         WIDGET WHATSAPP
+         Chat flottant pour contacter l'agence via WhatsApp
+         ============================================ -->
     <div class="whatsapp-widget" id="whatsappWidget">
         <div class="whatsapp-header">
             <div class="whatsapp-avatar">
@@ -1202,7 +1299,10 @@
         </div>
     </div>
 
-    <!-- WhatsApp Float Button -->
+    <!-- ============================================
+         BOUTON FLOTTANT WHATSAPP
+         Bouton fixe en bas à droite pour ouvrir le chat
+         ============================================ -->
     <div class="whatsapp-float" id="whatsappFloat">
         <div class="whatsapp-icon">
             <i class="fab fa-whatsapp"></i>
@@ -1213,7 +1313,10 @@
         </div>
     </div>
     
-    <!-- Schema.org JSON-LD for Local Business -->
+    <!-- ============================================
+         DONNÉES STRUCTURÉES SCHEMA.ORG
+         Métadonnées pour le référencement local
+         ============================================ -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -1268,7 +1371,10 @@
     }
     </script>
 
-    <!-- Cookie Consent Banner -->
+    <!-- ============================================
+         BANNIÈRE DE CONSENTEMENT COOKIES
+         Conformité RGPD
+         ============================================ -->
     <div id="cookieConsent" class="cookie-consent">
         <div class="cookie-content">
             <div class="cookie-icon">
@@ -1294,8 +1400,10 @@
         </div>
     </div>
 
-    <!-- Scripts -->
-    <script src="script.js"></script>
+    <!-- ============================================
+         SCRIPTS JAVASCRIPT
+         ============================================ -->
+    <script src="script.js" defer></script>
     
     <!-- Cookie Consent Script -->
     <script>
