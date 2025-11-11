@@ -218,8 +218,10 @@
                         <div class="phone-icon-wrapper">
                             <i class="fas fa-phone"></i>
                         </div>
-                        <span class="phone-number">03 88 97 18 60</span>
-                        <span class="phone-call-text">Appelez maintenant</span>
+                        <div class="phone-text-wrapper">
+                            <span class="phone-call-text">Appelez maintenant</span>
+                            <span class="phone-number">03 88 97 18 60</span>
+                        </div>
                     </a>
                 </div>
             </div>
@@ -294,7 +296,7 @@
                 <div class="stat-card">
                     <div class="stat-icon"><i class="fas fa-star"></i></div>
                     <div class="stat-number" data-target="98">0</div>
-                    <div class="stat-label">% de Satisfaction</div>
+                    <div class="stat-label">satisfaction</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
@@ -754,7 +756,8 @@
                         <li><i class="fas fa-folder-open"></i> Rassemblez tous vos documents avant de venir</li>
                     </ul>
                     <a href="#services" class="btn-services-docs">
-                        <i class="fas fa-file-alt"></i> Consulter les documents nécessaires par service
+                        <i class="fas fa-file-alt"></i>
+                        <span>Consulter les documents nécessaires par service</span>
                     </a>
                 </div>
 
@@ -965,10 +968,11 @@
                     <div class="faq-answer">
                         <p>Les délais varient selon le type de démarche :</p>
                         <ul>
-                            <li>Renouvellement : 24-48h</li>
-                            <li>Duplicata : Environ 4 semaines </li>
-                            <li>Changement d'adresse : 48h</li>
-                            <li>Changement de titulaire : 72h</li>
+                            <li>Changement de titulaire français : 2 à 5 jours ouvrés</li>
+                            <li>Immatriculation définitive véhicule importé : 4 à 6 semaines</li>
+                            <li>Immatriculation WW provisoire : immédiat délivré en agence</li>
+                            <li>Duplicata si code courrier : 2 à 5 jours ouvrés / sinon 4 semaines</li>
+                            <li>Changement d'adresse : 5 à 7 jours ouvrés</li>
                         </ul>
                         <p>Ces délais sont indicatifs et peuvent varier selon la charge administrative.</p>
                     </div>
@@ -1184,7 +1188,7 @@
             <div class="modal-footer">
                 <div class="modal-footer-buttons">
                     <a href="#contact" class="btn btn-primary" onclick="closeDocumentsModal()">
-                        <i class="fas fa-phone"></i> Nous contacter
+                        <i class="fas fa-file-alt"></i> Nous contacter
                     </a>
                     <a href="https://maps.google.com/?q=2a+Rue+de+l'Industrie,+67450+Mundolsheim" target="_blank" class="btn btn-secondary" onclick="closeDocumentsModal()">
                         <i class="fas fa-map-marker-alt"></i> Venir à l'agence

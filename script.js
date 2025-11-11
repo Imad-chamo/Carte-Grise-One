@@ -4,6 +4,67 @@
 const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // ============================================
+// POSITIONNEMENT DU HEADER SOUS LA BARRE NOIRE
+// Ajuste la position du header pour qu'il soit juste en dessous de la barre noire
+// ============================================
+function positionHeaderBelowTopBar() {
+    const topInfoBar = document.querySelector('.top-info-bar');
+    const header = document.querySelector('.header');
+    const hero = document.querySelector('.hero');
+    
+    if (topInfoBar && header) {
+        const topInfoBarHeight = topInfoBar.offsetHeight;
+        header.style.top = `${topInfoBarHeight}px`;
+        
+        // Ajuster le padding-top du hero-left et hero-right pour qu'ils commencent après le header
+        if (hero) {
+            const headerHeight = header.offsetHeight;
+            const totalHeight = topInfoBarHeight + headerHeight;
+            const heroLeft = hero.querySelector('.hero-left');
+            const heroRight = hero.querySelector('.hero-right');
+            
+            // Utiliser setProperty avec !important pour forcer le style même sur mobile
+            // Et aussi définir une variable CSS pour une meilleure compatibilité
+            const heroPaddingTop = `${totalHeight + 20}px`;
+            document.documentElement.style.setProperty('--hero-padding-top', heroPaddingTop);
+            
+            if (heroLeft) {
+                heroLeft.style.setProperty('padding-top', heroPaddingTop, 'important');
+            }
+            
+            if (heroRight) {
+                heroRight.style.setProperty('padding-top', heroPaddingTop, 'important');
+            }
+        }
+    }
+}
+
+// Appeler la fonction au chargement et au redimensionnement
+document.addEventListener('DOMContentLoaded', () => {
+    positionHeaderBelowTopBar();
+    // Réajuster après plusieurs délais pour s'assurer que tout est chargé (CSS, images, etc.)
+    setTimeout(positionHeaderBelowTopBar, 100);
+    setTimeout(positionHeaderBelowTopBar, 300);
+    setTimeout(positionHeaderBelowTopBar, 500);
+});
+
+window.addEventListener('resize', () => {
+    positionHeaderBelowTopBar();
+});
+
+// Observer les changements de taille de la barre noire et du header
+const resizeObserver = new ResizeObserver(() => {
+    positionHeaderBelowTopBar();
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const topInfoBar = document.querySelector('.top-info-bar');
+    const header = document.querySelector('.header');
+    if (topInfoBar) resizeObserver.observe(topInfoBar);
+    if (header) resizeObserver.observe(header);
+});
+
+// ============================================
 // MENU MOBILE HAMBURGER
 // Gestion de l'ouverture/fermeture du menu sur mobile
 // ============================================
@@ -343,12 +404,36 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         
-        // Simulate API call
-        setTimeout(() => {
+        // Envoyer les données au script PHP
+        const formDataToSend = new FormData();
+        formDataToSend.append('firstName', data.firstName);
+        formDataToSend.append('lastName', data.lastName);
+        formDataToSend.append('email', data.email);
+        formDataToSend.append('phone', data.phone);
+        formDataToSend.append('service', data.service);
+        formDataToSend.append('vehicleType', data.vehicleType || '');
+        formDataToSend.append('message', data.message);
+        
+        // Envoyer la requête au script PHP
+        fetch('send-email.php', {
+            method: 'POST',
+            body: formDataToSend
+        })
+        .then(response => response.json())
+        .then(result => {
             resetLoading();
-            showNotification('Votre demande a été envoyée avec succès ! Nous vous contacterons dans les plus brefs délais.', 'success');
-            contactForm.reset();
-        }, 2000);
+            if (result.success) {
+                showNotification(result.message || 'Votre demande a été envoyée avec succès ! Nous vous contacterons dans les plus brefs délais.', 'success');
+                contactForm.reset();
+            } else {
+                showNotification(result.message || 'Une erreur est survenue lors de l\'envoi. Veuillez réessayer ou nous contacter directement par téléphone.', 'error');
+            }
+        })
+        .catch((error) => {
+            resetLoading();
+            console.error('Erreur lors de l\'envoi:', error);
+            showNotification('Une erreur est survenue lors de l\'envoi. Veuillez réessayer ou nous contacter directement par téléphone au 03 88 97 18 60.', 'error');
+        });
     });
     
     // Service selection in contact form
