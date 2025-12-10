@@ -82,13 +82,36 @@ if (hamburger && navMenu) {
         hamburger.setAttribute('aria-label', !isActive ? 'Fermer le menu de navigation' : 'Ouvrir le menu de navigation');
     });
 
-    // Close menu when clicking on a link
+    // Close menu when clicking on a link and smooth scroll
     navLinks.forEach(link => {
-        link.addEventListener('click', () => {
+        link.addEventListener('click', (e) => {
+            const href = link.getAttribute('href');
+            
+            // Close menu
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
             hamburger.setAttribute('aria-expanded', 'false');
             hamburger.setAttribute('aria-label', 'Ouvrir le menu de navigation');
+            
+            // Smooth scroll to hero-right if it's the services link
+            if (href === '#hero-right') {
+                e.preventDefault();
+                setTimeout(() => {
+                    const heroRight = document.getElementById('hero-right');
+                    if (heroRight) {
+                        const headerHeight = document.querySelector('.header')?.offsetHeight || 0;
+                        const topBarHeight = document.querySelector('.top-info-bar')?.offsetHeight || 0;
+                        const offset = headerHeight + topBarHeight;
+                        const elementPosition = heroRight.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = elementPosition - offset;
+                        
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }, 300); // Wait for menu to close
+            }
         });
     });
 
@@ -168,26 +191,10 @@ document.addEventListener('DOMContentLoaded', () => {
     downloadButtons.forEach(button => {
         button.addEventListener('click', (e) => {
             e.preventDefault();
-            
-            // Show notification
-            showNotification('📥 Téléchargement du formulaire de demande d\'immatriculation Cerfa 13750*07 en cours...', 'info');
-            
-            // Download Cerfa PDF
-            setTimeout(() => {
-                // Path to Cerfa PDF in gallery folder
-                const cerfaUrl = 'imgs/demande_de_certificat_immatriculation_vehicule_remplissable.pdf';
-                
-                // Create download link
-                const link = document.createElement('a');
-                link.href = cerfaUrl;
-                link.download = 'Demande-Certificat-Immatriculation.pdf';
-                link.target = '_blank';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                
-                showNotification('✅ Formulaire Cerfa téléchargé ! N\'oubliez pas de le remplir avant de venir.', 'success');
-            }, 500);
+            // Utiliser la fonction globale downloadCerfaPDF avec le type par défaut
+            if (typeof window.downloadCerfaPDF === 'function') {
+                window.downloadCerfaPDF('13750-07');
+            }
         });
     });
 });
@@ -353,6 +360,13 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // Validation et envoi du formulaire
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialiser EmailJS
+    // ⚠️ IMPORTANT: Remplacer 'YOUR_PUBLIC_KEY' par votre clé publique EmailJS
+    // Vous la trouverez dans EmailJS Dashboard > Account > General > Public Key
+    if (typeof emailjs !== 'undefined') {
+        emailjs.init("YOUR_PUBLIC_KEY"); // À remplacer par votre clé publique EmailJS
+    }
+    
     const contactForm = document.getElementById('contactForm');
     if (!contactForm) return;
     
@@ -404,34 +418,35 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         
-        // Envoyer les données au script PHP
-        const formDataToSend = new FormData();
-        formDataToSend.append('firstName', data.firstName);
-        formDataToSend.append('lastName', data.lastName);
-        formDataToSend.append('email', data.email);
-        formDataToSend.append('phone', data.phone);
-        formDataToSend.append('service', data.service);
-        formDataToSend.append('vehicleType', data.vehicleType || '');
-        formDataToSend.append('message', data.message);
-        
-        // Envoyer la requête au script PHP
-        fetch('send-email.php', {
-            method: 'POST',
-            body: formDataToSend
-        })
-        .then(response => response.json())
-        .then(result => {
+        // Vérifier que EmailJS est chargé
+        if (typeof emailjs === 'undefined') {
             resetLoading();
-            if (result.success) {
-                showNotification(result.message || 'Votre demande a été envoyée avec succès ! Nous vous contacterons dans les plus brefs délais.', 'success');
-                contactForm.reset();
-            } else {
-                showNotification(result.message || 'Une erreur est survenue lors de l\'envoi. Veuillez réessayer ou nous contacter directement par téléphone.', 'error');
-            }
+            showNotification('Erreur: EmailJS n\'est pas chargé. Veuillez recharger la page.', 'error');
+            return;
+        }
+        
+        // Envoyer l'email via EmailJS
+        // ⚠️ IMPORTANT: Remplacer 'YOUR_SERVICE_ID' et 'YOUR_TEMPLATE_ID' par vos IDs EmailJS
+        // Service ID: EmailJS Dashboard > Email Services
+        // Template ID: EmailJS Dashboard > Email Templates
+        emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+            firstName: data.firstName,
+            lastName: data.lastName,
+            email: data.email,
+            phone: data.phone,
+            service: data.service,
+            vehicleType: data.vehicleType || '',
+            message: data.message,
+            to_email: 'contact@cartegriseone.fr'
+        })
+        .then(() => {
+            resetLoading();
+            showNotification('Votre demande a été envoyée avec succès ! Nous vous contacterons dans les plus brefs délais.', 'success');
+            contactForm.reset();
         })
         .catch((error) => {
             resetLoading();
-            console.error('Erreur lors de l\'envoi:', error);
+            console.error('Erreur EmailJS:', error);
             showNotification('Une erreur est survenue lors de l\'envoi. Veuillez réessayer ou nous contacter directement par téléphone au 03 88 97 18 60.', 'error');
         });
     });
@@ -772,8 +787,8 @@ const documentsData = {
                 documents: [
                     "Certificat de conformité européen (COC)",
                     "Facture d'achat du véhicule originale",
-                    "Justificatif de domicile de moins de 6 mois",
-                    "Pièce d'identité en cours de validité (carte nationale d'identité ou passeport)",
+                    "Justificatif de domicile de moins de 6 mois ( facture d'électricité, gaz, eau ou téléphone de moins de 6 mois, quittance de loyer de moins de 6 mois, si héberger attestation d'hébergement avec pièce d'identité de l'hébergeur)",
+                    "Pièce d'identité en cours de validité (carte nationale d'identité ou passeport, Titre de séjour, carte d'identité étrangère)",
                     "Permis de conduire valide",
                     "Attestation d'assurance du véhicule",
                     "Formulaire de demande d'immatriculation Cerfa 13750*07 dûment rempli et signé"
@@ -786,8 +801,8 @@ const documentsData = {
                     "Certificat de cession (Cerfa 15776*02) dûment rempli et signé par les deux parties",
                     "Carte grise originale barrée et signée par l'ancien propriétaire",
                     "Contrôle technique de moins de 6 mois (obligatoire si véhicule de plus de 4 ans)",
-                    "Justificatif de domicile de moins de 6 mois",
-                    "Pièce d'identité en cours de validité du nouveau propriétaire",
+                    "Justificatif de domicile de moins de 6 mois ( facture d'électricité, gaz, eau ou téléphone de moins de 6 mois, quittance de loyer de moins de 6 mois, si héberger attestation d'hébergement avec pièce d'identité de l'hébergeur)",
+                    "Pièce d'identité en cours de validité du nouveau propriétaire (carte nationale d'identité ou passeport, Titre de séjour, carte d'identité étrangère)",
                     "Permis de conduire valide",
                     "Attestation d'assurance du véhicule",
                     "Formulaire de demande d'immatriculation Cerfa 13750*07 dûment rempli et signé"
@@ -815,9 +830,9 @@ const documentsData = {
                     "Formulaire de demande d'immatriculation (Cerfa 13750*07) dûment rempli et signé",
                     "Certificat de cession (Cerfa 15776*02) dûment rempli et signé par les deux parties",
                     "Cerfa MANDAT de demande d'immatriculation (Cerfa 13750*03) dûment rempli et signé",
-                    "Pièce d'identité en cours de validité de l'acquéreur",
+                    "Pièce d'identité en cours de validité de l'acquéreur (carte nationale d'identité ou passeport, Titre de séjour, carte d'identité étrangère)",
                     "Permis de conduire valide de l'acquéreur",
-                    "Justificatif de domicile de moins de 6 mois du nouveau propriétaire",
+                    "Justificatif de domicile de moins de 6 mois du nouveau propriétaire ( facture d'électricité, gaz, eau ou téléphone de moins de 6 mois, quittance de loyer de moins de 6 mois, si héberger attestation d'hébergement avec pièce d'identité de l'hébergeur)",
                     "Contrôle technique de moins de 6 mois (obligatoire si véhicule de plus de 4 ans)", 
                 ]
             }
@@ -831,13 +846,11 @@ const documentsData = {
                 icon: "fa-globe-europe",
                 documents: [
                     "Carte grise étrangère originale ",
-                    "Contrat de vente ou facture d'achat ",
-                    "Pièce d'identité en cours de validité de l'acquéreur",
+                    "Contrat / cession de vente (si achat à un particulier ) ou facture d'achat (si achat à un professionnel) ",
+                    "Pièce d'identité en cours de validité de l'acquéreur (carte nationale d'identité, passeport, titre de séjour ou carte d'identité étrangère)",
                     "Permis de conduire valide de l'acquéreur",
-                    "Justificatif de domicile de moins de 6 mois",
+                    "Justificatif de domicile de moins de 6 mois ( facture d'électricité, gaz, eau ou téléphone de moins de 6 mois, quittance de loyer de moins de 6 mois, si héberger attestation d'hébergement avec pièce d'identité de l'hébergeur)",
                     "Contrôle technique de moins de 6 mois (obligatoire si véhicule de plus de 4 ans)",
-                    "Certificat de conformité européen (COC) ou réception à titre isolé (RTI)",
-                    "Attestation de douane (846A) pour véhicule hors UE",
                     "Formulaire de demande d'immatriculation (Cerfa 13750*07) dûment rempli et signé",
                     "Cerfa MANDAT de demande d'immatriculation (Cerfa 13750*03) dûment rempli et signé"
                 ]
@@ -857,14 +870,23 @@ const documentsData = {
         title: "Plaques WW provisoires",
         items: [
             {
+                title: "Information importante",
+                icon: "fa-info-circle",
+                documents: [
+                    "<strong>Le WW provisoire inclut toujours la procédure complète de carte grise définitive.</strong>",
+                    "Nous ne pouvons pas faire uniquement le WW provisoire seul."
+                ],
+                isAlert: true
+            },
+            {
                 title: "Documents obligatoires",
-                icon: "fa-clock",
+                icon: "fa-file-alt",
                 documents: [
                     "Carte(s) grise(s) étrangère(s) du véhicule ",
                     "Facture d'achat ou acte de vente ou cession de véhicule",
-                    "Pièce d'identité en cours de validité ",
+                    "Pièce d'identité en cours de validité (carte nationale d'identité, passeport, titre de séjour ou carte d'identité étrangère)",
                     "Permis de conduire valide",
-                    "Justificatif de domicile de moins de 6 mois",
+                    "Justificatif de domicile de moins de 6 mois ( facture d'électricité, gaz, eau ou téléphone de moins de 6 mois, quittance de loyer de moins de 6 mois, si héberger attestation d'hébergement avec pièce d'identité de l'hébergeur)",
                     "Contrôle technique valide",
                     "si véhicule hors UE : Attestation de douane (846A)",
                     "Formulaire de demande d'immatriculation Cerfa 13750*07 dûment rempli et signé",
@@ -880,10 +902,10 @@ const documentsData = {
                 title: "En cas de perte - Documents obligatoires",
                 icon: "fa-exclamation-triangle",
                 documents: [
-                    "Déclaration de perte (Cerfa 15776*04) dûment rempli et signé",
-                    "Pièce d'identité en cours de validité",
+                    "Déclaration de perte/vol (Cerfa 15776*04) dûment rempli et signé",
+                    "Pièce d'identité en cours de validité (carte nationale d'identité, passeport, titre de séjour ou carte d'identité étrangère)",
                     "Permis de conduire valide",
-                    "Justificatif de domicile de moins de 6 mois",
+                    "Justificatif de domicile de moins de 6 mois ( facture d'électricité, gaz, eau ou téléphone de moins de 6 mois, quittance de loyer de moins de 6 mois, si héberger attestation d'hébergement avec pièce d'identité de l'hébergeur)",
                     "Formulaire de demande d'immatriculation Cerfa 13750*07 dûment rempli et signé",
                     "Cerfa MANDAT de demande d'immatriculation (Cerfa 13750*03) dûment rempli et signé"
                 ]
@@ -894,9 +916,9 @@ const documentsData = {
                 documents: [
                     "Déclaration de perte (Cerfa 15776*04) dûment rempli et signé",
                     "Récépissé de depot de plainte délivré par la gendarmerie ou la police nationale",
-                    "Pièce d'identité en cours de validité",
+                    "Pièce d'identité en cours de validité (carte nationale d'identité, passeport, titre de séjour ou carte d'identité étrangère)",
                     "Permis de conduire valide",
-                    "Justificatif de domicile de moins de 6 mois",
+                    "Justificatif de domicile de moins de 6 mois ( facture d'électricité, gaz, eau ou téléphone de moins de 6 mois, quittance de loyer de moins de 6 mois, si héberger attestation d'hébergement avec pièce d'identité de l'hébergeur)",
                     "Cerfa MANDAT de demande d'immatriculation (Cerfa 13750*03) dûment rempli et signé",
                     "Formulaire de demande d'immatriculation Cerfa 13750*07 dûment rempli et signé"
                 ]
@@ -914,9 +936,9 @@ const documentsData = {
                     "Acte de notoriété",
                     "Attestation de décès",
                     "Livret de famille",
-                    "attestation de desistement + CNI Recto Verso de chaque héritier",
-                    "controle technique valide (Aux epoux)",
-                    "contrôle technique de moins de 6 mois (Aux enfants)",
+                    "Attestation de desistement + CNI Recto Verso de chaque héritier",
+                    "Controle technique valide moins de 2 ans (Aux epoux(se))",
+                    "Contrôle technique de moins de 6 mois (Si enfants ou personne tiers)",
                     "Certificat d'immatriculation du véhicule Cerfa 13750*07 dûment rempli et signé",
                 ]
             },
@@ -927,11 +949,20 @@ const documentsData = {
                     "Mandat de demande d'immatriculation (Cerfa 13750*03) dûment rempli et signé",
                     "Formulaire de demande d'immatriculation Cerfa 13750*07 dûment rempli et signé",
                     "Cerfa cession (Cerfa 15776*02) dûment rempli et signé",
-                    "piece d'identité en cours de validité",
-                    "permis de conduire valide",
-                    "justificatif de domicile de moins de 6 mois"
-                ]
+                    "Piece d'identité en cours de validité ( carte nationale d'identité, passeport, titre de séjour ou carte d'identité étrangère)",
+                    "Permis de conduire valide  ",
+                            "Justificatif de domicile de moins de 6 mois ( facture d'électricité, gaz, eau ou téléphone de moins de 6 mois, quittance de loyer de moins de 6 mois, si héberger attestation d'hébergement avec pièce d'identité de l'hébergeur)"
+                        ]
             },
+            {
+                title: "Correction de carte grise",
+                icon: "fa-edit",
+                documents: [
+                    "Les documents nécessaires pour une correction de carte grise varient selon le type de correction à effectuer. Veuillez contacter notre agence pour connaître les documents spécifiques requis pour votre situation."
+                ],
+                isAlert: true
+            },
+            
         ]
     },
     adresse: {
@@ -941,12 +972,12 @@ const documentsData = {
                 title: "Documents obligatoires",
                 icon: "fa-home",
                 documents: [
-                    "Carte grise originale ou copie du véhicule",
-                    "Pièce d'identité en cours de validité",
+                    "Carte grise originale ou copie ",
+                    "Pièce d'identité en cours de validité (carte nationale d'identité, passeport, titre de séjour ou carte d'identité étrangère)",
                     "Permis de conduire valide",
                     "Justificatif de domicile de moins de 6 mois à la nouvelle adresse",
-                    "Formulaire de demande d'immatriculation Cerfa 13750*07 dûment rempli et signé",
                     "Si carte grise sous ancien format (FNI) changement de plaque d'immatriculation obligatoire",
+                    "Formulaire de demande d'immatriculation Cerfa 13750*07 dûment rempli et signé",
                     "Cerfa MANDAT de demande d'immatriculation (Cerfa 13750*03) dûment rempli et signé"
                 ]
             },
@@ -957,66 +988,38 @@ const documentsData = {
                     "Facture d'électricité, gaz, eau ou téléphone de moins de 6 mois",
                     "Quittance de loyer de moins de 6 mois",
                     "Attestation d'hébergement avec pièce d'identité de l'hébergeur",
-                    "Avis d'imposition de moins d'un an",
-                    "Relevé de compte bancaire de moins de 3 mois"
+                    "Avis d'imposition date d'établissement de moins de 6 mois" 
                 ]
             },
-            {
-                title: "Documents complémentaires si nécessaire",
-                icon: "fa-info-circle",
-                documents: [
-                    "Justificatif de situation fiscale si changement de département"
-                ]
-            }
+
         ]
     },
     cession: {
         title: "Déclaration de cession et d'achat",
         items: [
             {
-                title: "Pour le vendeur - Documents obligatoires",
-                icon: "fa-user",
+                title: "Déclaration de cession - Documents obligatoires",
+                icon: "fa-handshake",
                 documents: [
-                    "Carte grise originale du véhicule",
-                    "Certificat de cession (Cerfa 15776*02) en 2 exemplaires, dûment rempli et signé",
-                    "Contrôle technique de moins de 6 mois (obligatoire si véhicule de plus de 4 ans)",
-                    "Pièce d'identité en cours de validité (carte nationale d'identité ou passeport)",
-                    "Permis de conduire valide",
-                    "Justificatif de domicile de moins de 6 mois"
-                ]
-            },
-            {
-                title: "Pour l'acheteur - Documents obligatoires",
-                icon: "fa-user-plus",
-                documents: [
+                    "Carte grise originale ou copie de la carte grise barree signée par le vendeur du véhicule",
                     "Certificat de cession (Cerfa 15776*02) signé par le vendeur",
-                    "Carte grise originale barrée et signée par le vendeur",
-                    "Justificatif de domicile de moins de 6 mois",
-                    "Pièce d'identité en cours de validité (carte nationale d'identité ou passeport)",
-                    "Permis de conduire valide",
-                    "Attestation d'assurance du véhicule au nom de l'acheteur",
-                    "Formulaire de demande d'immatriculation Cerfa 13750*07 dûment rempli et signé"
-                ]
-            }
-        ]
-    },
-    coc: {
-        title: "Certificat de conformité (COC)",
-        items: [
-            {
-                title: "Documents obligatoires",
-                icon: "fa-certificate",
-                documents: [
-                    "Carte grise étrangère originale"
+                    "Pièce d'identité en cours de validité du vendeur (carte nationale d'identité, passeport, titre de séjour ou carte d'identité étrangère)"
                 ]
             },
             {
-                title: "Important",
-                icon: "fa-info-circle",
+                title: "Déclaration d'achat (professionnel de l'automobile) - Documents obligatoires",
+                icon: "fa-shopping-cart",
                 documents: [
-                    "Pour le reste des papiers nécessaires, veuillez contacter notre agence. Chaque marque de véhicule a ses propres procédures spécifiques pour obtenir le certificat de conformité (COC)."
+                    "Carte grise signée, datée et tamponnée",
+                    "Pièce d'identité en cours de validité du gérant de l'entreprise (carte nationale d'identité, passeport, titre de séjour ou carte d'identité étrangère)",
+                    "Permis de conduire valide de l'acheteur",
+                    "KBIS de moins de 6 mois de l'entreprise",
+                    "Tampon de l'entreprise",
+                    "Cerfa MANDAT de demande d'immatriculation (Cerfa 13750*02) dûment rempli et signé"
                 ]
-            }
+            },
+            
+
         ]
     }
     ,quitus: {
@@ -1026,10 +1029,10 @@ const documentsData = {
                 title: "Documents obligatoires",
                 icon: "fa-file-invoice-dollar",
                 documents: [
-                    "Carte grise étrangère du véhicule",
+                    "Carte grise ou scan de la carte grise du véhicule",
                     "Facture d'achat ou certificat de cession",
-                    "Pièce d'identité en cours de validité ",
-                    "Justificatif de domicile de moins de 6 mois",
+                    "Pièce d'identité en cours de validité (carte nationale d'identité, passeport, titre de séjour ou carte d'identité étrangère)",
+                    "Justificatif de domicile de moins de 6 mois ( facture d'électricité, gaz, eau ou téléphone de moins de 6 mois, quittance de loyer de moins de 6 mois, si héberger, attestation d'hébergement avec pièce d'identité de l'hébergeur)",
                     "Formulaire de demande de quitus fiscal (Cerfa 15291*04) a imprimer et remplire en agence",
                     "Cerfa MANDAT de demande d'immatriculation (Cerfa 13750*03) dûment rempli et signé"
                 ]
@@ -1039,7 +1042,7 @@ const documentsData = {
     },
 
     plaques: {
-        title: "Jeu de plaques d'immatriculation",
+        title: "Jeu de plaques d'immatriculation <br> ( auto, moto, camion, etc.)",
         items: [
             {
                 title: "Plaques classiques <span class='title-small'>- Plaques auto SIV INCASSABLE</span>",
@@ -1051,7 +1054,8 @@ const documentsData = {
                 icon: "",
                 images: [
                     "imgs/Plates/11.png",
-                    "imgs/Plates/12.png"
+                    "imgs/Plates/12.png",
+                    "imgs/Plates/14.png"
                 ]
             },
             {
@@ -1064,7 +1068,8 @@ const documentsData = {
                 icon: "",
                 images: [
                     "imgs/Plates/4.png",
-                    "imgs/Plates/13.png"
+                    "imgs/Plates/13.png",
+                    "imgs/Plates/14.png"
                 ]
             },
             {
@@ -1089,11 +1094,10 @@ const documentsData = {
                 title: "Documents obligatoires",
                 icon: "fa-file-invoice-dollar",
                 documents: [
-                    "Carte grise originale du véhicule",
-                    "Pièce d'identité en cours de validité du propriétaire",
-                    "Justificatif de domicile de moins de 6 mois",
+                    "Carte grise ou scan de la carte grise du véhicule",
+                    "Pièce d'identité en cours de validité du propriétaire (carte nationale d'identité, passeport, titre de séjour ou carte d'identité étrangère)",
+                    "Justificatif de domicile de moins de 6 mois ( facture d'électricité, gaz, eau ou téléphone de moins de 6 mois, quittance de loyer de moins de 6 mois, si héberger attestation d'hébergement avec pièce d'identité de l'hébergeur)",
                     "Facture d'achat ou certificat de cession",
-                    "Contrôle technique de moins de 6 mois (si véhicule de plus de 4 ans)",
                     "Formulaire de demande de quitus fiscal dûment rempli"
                 ]
             },
@@ -1101,7 +1105,7 @@ const documentsData = {
                 title: "Informations importantes",
                 icon: "fa-info-circle",
                 documents: [
-                    "Le quitus fiscal est nécessaire pour l'immatriculation d'un véhicule importé ou acheté",
+                    "Le quitus fiscal est nécessaire pour l'immatriculation d'un véhicule importé  de l'UE",
                     "Délai de traitement : variable selon les services fiscaux",
                     "Service disponible pour toute la France",
                     "Pour plus d'informations, contactez notre agence"
@@ -1119,18 +1123,80 @@ window.downloadCerfaPDF = function(cerfaType) {
     // Déterminer quel formulaire télécharger selon le type
     let cerfaUrl, fileName, notificationText;
     
-    if (cerfaType === '15776' || cerfaType === 'cession') {
-        // Pour le certificat de cession, on utilise le même PDF pour l'instant
-        // ou on peut rediriger vers le site officiel
-        cerfaUrl = 'https://www.service-public.fr/particuliers/vosdroits/R1136';
-        fileName = 'Certificat-de-cession-15776.pdf';
-        notificationText = '📥 Redirection vers le formulaire Cerfa 15776*02...';
-    } else {
-        // Formulaire de demande d'immatriculation Cerfa 13750*07 par défaut
-        cerfaUrl = 'imgs/demande_de_certificat_immatriculation_vehicule_remplissable.pdf';
-        fileName = 'Demande-Certificat-Immatriculation.pdf';
-        notificationText = '📥 Téléchargement du formulaire de demande d\'immatriculation Cerfa 13750*07 en cours...';
-    }
+    // Mapping des types de CERFA vers les fichiers PDF
+    const cerfaMapping = {
+        '13750': {
+            url: 'imgs/cerfa_13750-07.pdf',
+            fileName: 'Cerfa_13750-07_Demande-Immatriculation.pdf',
+            notification: '📥 Téléchargement du formulaire de demande d\'immatriculation Cerfa 13750*07 en cours...'
+        },
+        '13750-07': {
+            url: 'imgs/cerfa_13750-07.pdf',
+            fileName: 'Cerfa_13750-07_Demande-Immatriculation.pdf',
+            notification: '📥 Téléchargement du formulaire de demande d\'immatriculation Cerfa 13750*07 en cours...'
+        },
+        '13750-03': {
+            url: 'imgs/cerfa_13753-04.pdf',
+            fileName: 'Cerfa_13753-04_Mandat-Immatriculation.pdf',
+            notification: '📥 Téléchargement du formulaire de mandat Cerfa 13750*03 en cours...'
+        },
+        '13753': {
+            url: 'imgs/cerfa_13753-04.pdf',
+            fileName: 'Cerfa_13753-04_Mandat-Immatriculation.pdf',
+            notification: '📥 Téléchargement du formulaire de mandat Cerfa 13750*03 en cours...'
+        },
+        '15776': {
+            url: 'imgs/cerfa_15776-02.pdf',
+            fileName: 'Cerfa_15776-02_Certificat-Cession.pdf',
+            notification: '📥 Téléchargement du certificat de cession Cerfa 15776*02 en cours...'
+        },
+        '15776-02': {
+            url: 'imgs/cerfa_15776-02.pdf',
+            fileName: 'Cerfa_15776-02_Certificat-Cession.pdf',
+            notification: '📥 Téléchargement du certificat de cession Cerfa 15776*02 en cours...'
+        },
+        '15776-04': {
+            url: 'imgs/cerfa_13757-03.pdf',
+            fileName: 'Cerfa_15776-04_Declaration-Perte.pdf',
+            notification: '📥 Téléchargement de la déclaration de perte Cerfa 15776*04 en cours...'
+        },
+        '15291': {
+            url: 'imgs/1993-part-d_4505.pdf',
+            fileName: 'Cerfa_15291-04_Quitus-Fiscal.pdf',
+            notification: '📥 Téléchargement du formulaire de quitus fiscal Cerfa 15291*04 en cours...'
+        },
+        '15291-04': {
+            url: 'imgs/1993-part-d_4505.pdf',
+            fileName: 'Cerfa_15291-04_Quitus-Fiscal.pdf',
+            notification: '📥 Téléchargement du formulaire de quitus fiscal Cerfa 15291*04 en cours...'
+        },
+        'cession': {
+            url: 'imgs/cerfa_15776-02.pdf',
+            fileName: 'Cerfa_15776-02_Certificat-Cession.pdf',
+            notification: '📥 Téléchargement du certificat de cession Cerfa 15776*02 en cours...'
+        },
+        'perte': {
+            url: 'imgs/cerfa_13757-03.pdf',
+            fileName: 'Cerfa_15776-04_Declaration-Perte.pdf',
+            notification: '📥 Téléchargement de la déclaration de perte Cerfa 15776*04 en cours...'
+        },
+        'mandat': {
+            url: 'imgs/cerfa_13753-04.pdf',
+            fileName: 'Cerfa_13753-04_Mandat-Immatriculation.pdf',
+            notification: '📥 Téléchargement du formulaire de mandat Cerfa 13750*03 en cours...'
+        }
+    };
+    
+    // Récupérer les informations du mapping ou utiliser les valeurs par défaut
+    const cerfaInfo = cerfaMapping[cerfaType] || {
+        url: 'imgs/cerfa_13750-07.pdf',
+        fileName: 'Cerfa_13750-07_Demande-Immatriculation.pdf',
+        notification: '📥 Téléchargement du formulaire Cerfa en cours...'
+    };
+    
+    cerfaUrl = cerfaInfo.url;
+    fileName = cerfaInfo.fileName;
+    notificationText = cerfaInfo.notification;
     
     showNotification(notificationText, 'info');
     
@@ -1155,11 +1221,17 @@ window.showDocuments = function(serviceType) {
     const modal = document.getElementById('documentsModal');
     const modalTitle = document.getElementById('modalTitle');
     const modalDocumentsList = document.getElementById('modalDocumentsList');
+    const modalFooterSimple = document.getElementById('modalFooterSimple');
     
     // Vérifier que tous les éléments existent
     if (!modal || !modalTitle || !modalDocumentsList) {
         // Modal elements not found - fail silently in production
         return;
+    }
+    
+    // Reset footer visibility when modal opens
+    if (modalFooterSimple) {
+        modalFooterSimple.classList.remove('hidden');
     }
     
     const data = documentsData[serviceType];
@@ -1187,6 +1259,73 @@ window.showDocuments = function(serviceType) {
                 title.className = 'main-title';
                 title.innerHTML = `<i class="fas ${item.icon}"></i> ${item.title}`;
                 itemDiv.appendChild(title);
+                modalDocumentsList.appendChild(itemDiv);
+                return; // Ne pas continuer pour ce item
+            }
+            
+            // Vérifier si c'est une alerte
+            if (item.isAlert) {
+                itemDiv.className = 'modal-document-item modal-alert';
+                itemDiv.style.cssText = `
+                    background: #f8f9fa;
+                    border-left: 4px solid #000;
+                    border-radius: 4px;
+                    padding: 0;
+                    margin-bottom: 1.5rem;
+                    overflow: hidden;
+                `;
+                
+                const title = document.createElement('h4');
+                title.style.cssText = `
+                    background: #fbbf24;
+                    color: #000;
+                    font-size: 1.1em;
+                    font-weight: 600;
+                    margin: 0;
+                    padding: 0.875rem 1.25rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                `;
+                title.innerHTML = `<i class="fas ${item.icon}" style="color: #000;"></i> ${item.title}`;
+                itemDiv.appendChild(title);
+                
+                const contentDiv = document.createElement('div');
+                contentDiv.style.cssText = `
+                    padding: 1.25rem;
+                `;
+                
+                const ul = document.createElement('ul');
+                ul.style.cssText = `
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+                `;
+                
+                if (item.documents && Array.isArray(item.documents) && item.documents.length > 0) {
+                    item.documents.forEach(doc => {
+                        if (doc === '<br>') {
+                            const br = document.createElement('br');
+                            ul.appendChild(br);
+                        } else {
+                            const li = document.createElement('li');
+                            li.style.cssText = `
+                                padding: 0.5rem 0;
+                                line-height: 1.6;
+                                color: #333;
+                                font-size: 1em;
+                                display: flex;
+                                align-items: flex-start;
+                                gap: 0.5rem;
+                            `;
+                            li.innerHTML = `<i class="fas fa-check-circle" style="color: #fbbf24; margin-top: 0.2rem; flex-shrink: 0;"></i> <span>${doc}</span>`;
+                            ul.appendChild(li);
+                        }
+                    });
+                }
+                
+                contentDiv.appendChild(ul);
+                itemDiv.appendChild(contentDiv);
                 modalDocumentsList.appendChild(itemDiv);
                 return; // Ne pas continuer pour ce item
             }
@@ -1236,8 +1375,8 @@ window.showDocuments = function(serviceType) {
                     // Vérifier si c'est une paire de Cerfa à afficher côte à côte
                     if (doc.startsWith('CERFA_PAIR:')) {
                         const cerfaPair = doc.split(':');
-                        const cerfa1Type = cerfaPair[1]; // 15776
-                        const cerfa2Type = cerfaPair[2]; // 13750
+                        const cerfa1Type = cerfaPair[1] || '15776-02'; // 15776-02 par défaut
+                        const cerfa2Type = cerfaPair[2] || '13750-07'; // 13750-07 par défaut
                         
                         const li = document.createElement('li');
                         li.className = 'cerfa-pair-item';
@@ -1264,10 +1403,24 @@ window.showDocuments = function(serviceType) {
                         
                         // Vérifier si le document contient "Cerfa" pour ajouter un bouton de téléchargement
                         if (doc.toLowerCase().includes('cerfa') || doc.toLowerCase().includes('formulaire')) {
-                            // Déterminer le type de Cerfa
+                            // Déterminer le type de Cerfa en analysant le texte
                             let cerfaType = '13750'; // Par défaut
-                            if (doc.includes('15776') || doc.toLowerCase().includes('cession')) {
-                                cerfaType = '15776';
+                            
+                            // Détection des différents types de CERFA
+                            if (doc.includes('15776*02') || doc.toLowerCase().includes('cession') && !doc.includes('15776*04')) {
+                                cerfaType = '15776-02';
+                            } else if (doc.includes('15776*04') || doc.toLowerCase().includes('perte') || doc.toLowerCase().includes('vol')) {
+                                cerfaType = '15776-04';
+                            } else if (doc.includes('13750*03') || doc.toLowerCase().includes('mandat')) {
+                                cerfaType = '13750-03';
+                            } else if (doc.includes('13750*07') || doc.toLowerCase().includes('demande d\'immatriculation')) {
+                                cerfaType = '13750-07';
+                            } else if (doc.includes('15291') || doc.toLowerCase().includes('quitus')) {
+                                cerfaType = '15291-04';
+                            } else if (doc.includes('15776') || doc.toLowerCase().includes('cession')) {
+                                cerfaType = '15776-02';
+                            } else if (doc.includes('13750')) {
+                                cerfaType = '13750-07';
                             }
                             
                             li.innerHTML = `
@@ -1295,6 +1448,23 @@ window.showDocuments = function(serviceType) {
     // Show modal
     modal.classList.add('show');
     document.body.style.overflow = 'hidden';
+    
+    // Add scroll listener to hide footer when scrolling
+    if (modalDocumentsList && modalFooterSimple) {
+        // Remove previous listener if any
+        const newScrollHandler = function() {
+            if (modalDocumentsList.scrollTop > 10) {
+                modalFooterSimple.classList.add('hidden');
+            } else {
+                modalFooterSimple.classList.remove('hidden');
+            }
+        };
+        
+        // Remove old listener and add new one
+        modalDocumentsList.removeEventListener('scroll', modalDocumentsList._scrollHandler);
+        modalDocumentsList._scrollHandler = newScrollHandler;
+        modalDocumentsList.addEventListener('scroll', newScrollHandler);
+    }
 };
 
 // ============================================
